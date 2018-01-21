@@ -47,6 +47,10 @@ before_script:
 - ls drush
 - ls --color vendor/bin
 - vendor/bin/drupal
+- vendor/bin/drupal help server
+- vendor/bin/drupal help quick:start
+- vendor/bin/drupal help site:install
+- vendor/bin/drupal help site:new
 - vendor/bin/drush
 # - ls -R --color bin config public src
 # - ls -R --color var
