@@ -46,20 +46,20 @@ before_script:
 - ls --color
 - ls drush
 - ls --color vendor/bin
+- $GOPATH/bin/ccat composer.json
 - cd web
 - ls --color
-- vendor/bin/drupal
-- vendor/bin/drupal help init
-- vendor/bin/drupal help server
-- vendor/bin/drupal help quick:start
-- vendor/bin/drupal help site:install
-- vendor/bin/drupal help site:new
-- vendor/bin/drush
+- ../vendor/bin/drupal
+- ../vendor/bin/drupal help init
+- ../vendor/bin/drupal help server
+- ../vendor/bin/drupal help quick:start
+- ../vendor/bin/drupal help site:install
+- ../vendor/bin/drupal help site:new
+- ../vendor/bin/drush
 # - ls -R --color bin config public src
 # - ls -R --color var
-- vendor/bin/drupal init
-- vendor/bin/drupal quick:start
-- $GOPATH/bin/ccat composer.json
+- ../vendor/bin/drupal init
+- ../vendor/bin/drupal quick:start
 
 script:
 - sleep .01
