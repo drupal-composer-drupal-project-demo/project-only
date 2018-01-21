@@ -46,7 +46,10 @@ before_script:
 - ls --color
 - ls drush
 - ls --color vendor/bin
+- cd web
+- ls --color
 - vendor/bin/drupal
+- vendor/bin/drupal help init
 - vendor/bin/drupal help server
 - vendor/bin/drupal help quick:start
 - vendor/bin/drupal help site:install
@@ -54,11 +57,13 @@ before_script:
 - vendor/bin/drush
 # - ls -R --color bin config public src
 # - ls -R --color var
+- vendor/bin/drupal init
+- vendor/bin/drupal quick:start
 - $GOPATH/bin/ccat composer.json
 
 script:
 - sleep .01
-# - elinks http://localhost:8000/ -dump-color-mode 4 -dump
+- elinks http://localhost:8088/ -dump-color-mode 4 -dump
 
 - php ../.travis/bin/security-checker --version
 - php ../.travis/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
