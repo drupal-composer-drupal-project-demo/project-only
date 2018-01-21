@@ -44,7 +44,7 @@ before_script:
 - composer show
 # - bin/console
 - ls --color
-- ./drush
+- ls drush
 - ls --color vendor/bin
 # - ls -R --color bin config public src
 # - ls -R --color var
