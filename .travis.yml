@@ -46,6 +46,7 @@ before_script:
 - ls --color
 - ls drush
 - ls --color vendor/bin
+- vendor/bin/drush
 # - ls -R --color bin config public src
 # - ls -R --color var
 - $GOPATH/bin/ccat composer.json
