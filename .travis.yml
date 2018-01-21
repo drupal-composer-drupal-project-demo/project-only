@@ -1,0 +1,85 @@
+---
+language: php
+addons:
+  apt:
+    packages:
+    - elinks # For dysplaying php files on console.
+    - empty-expect
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+php: # symfony/skeleton requires ^7.0.8
+- 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
+- 7.1
+- 7.2
+- nightly
+
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.2
+    env: SKELETON_VERSION="dev-master@dev"
+  allow_failures:
+  - php: 7.0 # sensiolabs/security-checker 4.1.7
+  - php: 7.3
+  - php: nightly
+  - env: SKELETON_VERSION="dev-master@dev"
+
+before_install:
+- install --directory .travis/bin
+# - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
+- wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker
+
+# - pip install pygments # but now pygmentize is no more used right here.
+- go get -u github.com/jingweno/ccat
+
+install:
+# - composer create-project symfony/skeleton my-project $SYMFONY_VERSION
+#^ Does not work yet for Symfony dev versions!
+#^ in Symfony 4 there is a symfony command instead! (is it an urban legend?)
+- composer create-project --no-install symfony/skeleton my-project $SKELETON_VERSION
+- cd my-project
+- if [ "dev-master@dev" = $SKELETON_VERSION ]; then composer remove --no-update symfony/lts; fi
+# - composer install # --with-all-dependencies
+#^ Only needed (for Symfony dev versions) then create-project is called with --no-install.
+
+- composer require --dev symfony/web-server-bundle
+
+# - composer require annotations #  [ERROR] Missing package: to use the make:controller command
+# - composer require --dev profiler
+# - composer require twig
+# - composer require orm
+# - composer require form
+# - composer require form validator
+# - composer require --dev maker-bundle
+
+before_script:
+- composer show
+- bin/console
+- ls --color
+- ls -R --color bin config public src
+# - ls -R --color var
+- $GOPATH/bin/ccat composer.json
+- $GOPATH/bin/ccat config/bundles.php
+- $GOPATH/bin/ccat config/routes.yaml
+- $GOPATH/bin/ccat config/services.yaml
+- $GOPATH/bin/ccat config/packages/framework.yaml
+- $GOPATH/bin/ccat config/packages/routing.yaml
+- $GOPATH/bin/ccat config/packages/dev/routing.yaml
+- $GOPATH/bin/ccat config/packages/test/framework.yaml
+- $GOPATH/bin/ccat src/Kernel.php
+- php -s src/Kernel.php | elinks -force-html -dump-color-mode 4 -dump
+
+script:
+- bin/console server:start
+# - make serve # would need a Makefile !
+- sleep .01
+- elinks http://localhost:8000/ -dump-color-mode 4 -dump
+- w3m http://localhost:8000/ | cat # no webpage defined right now! (try also elinks)
+
+- php ../.travis/bin/security-checker --version
+- php ../.travis/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
+- 'curl -H "Accept: text/plain" https://security.sensiolabs.org/check_lock -F lock=@composer.lock'
+  #^ This checks that the application doesn't use dependencies with known security vulnerabilities
