@@ -60,7 +60,7 @@ before_script:
 # - ls -R --color var
 - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
-- ../vendor/bin/drupal server --yes --no-interaction --learning
+- ../vendor/bin/drupal server --yes --no-interaction --learning &
 
 script:
 - sleep .01
