@@ -38,6 +38,7 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
+- composer install
 
 before_script:
 - composer show
