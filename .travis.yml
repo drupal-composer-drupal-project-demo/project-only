@@ -58,7 +58,7 @@ before_script:
 - ../vendor/bin/drush
 # - ls -R --color bin config public src
 # - ls -R --color var
-- ../vendor/bin/drupal init
+- ../vendor/bin/drupal init --yes
 - ../vendor/bin/drupal quick:start
 
 script:
