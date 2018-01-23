@@ -27,9 +27,6 @@ services:
 env:
   global:
   matrix:
-  - T="tata"
-  - T="toto"
-  matrix:
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
@@ -109,6 +106,7 @@ before_script:
 - ls drush
 - ls --color vendor/bin
 - $GOPATH/bin/ccat composer.json
+- find . -name profiles
 - cd web
 - ls --color
 - ls --color profiles
