@@ -35,15 +35,12 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env:
-    - DRUPAL_VERSION="^8.5@alpha"
-    - DB_TYPE="mysql" DB_HOST="localhost"
+    env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env:
-    - DRUPAL_VERSION="^8.5@alpha"
+  - env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
 
 before_install:
 - install --directory .travis/bin
@@ -83,15 +80,15 @@ before_script:
 - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
 - echo 'tata$USER;'
 - echo "tata$USER;"
-- psql -c 'create database travis_ci_test;' -U postgres # --encoding=UTF8 --owner=username
+- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=username
 - psql --command="\l" -U postgres
 - ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
   --langcode="en"
   --db-type=$DB_TYPE
   --db-host=$DB_HOST
   --db-port=$DB_PORT
-  --db-name="travis_ci_test"
-  --db-user="travis"
+  --db-name=$USER
+  --db-user=$USER
   --db-pass=""
   --site-name="Project Only"
   --site-mail="admin@example.com"
