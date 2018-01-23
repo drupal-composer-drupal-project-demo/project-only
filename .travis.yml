@@ -11,10 +11,10 @@ cache:
     - $HOME/.composer/cache/files
 
 php: # symfony/skeleton requires ^7.0.8
-# - 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
+- 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
 - 7.1 # Recommanded for Drupal 8.4
-# - 7.2 # for Drupal 8.5+
-# - nightly
+- 7.2 # for Drupal 8.5+
+- nightly
 
 # addons:
   # mariadb: # '10.0' # Do not know about other versions...
@@ -27,18 +27,21 @@ services:
 env:
   global:
   matrix:
-    - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
-    - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
-    - LANGCODE="en" PROFILE="minimal" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-    - LANGCODE="fr" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
-    - LANGCODE="fr" PROFILE="minimal" DB_TYPE="sqlite"
-    - LANGCODE="fr" PROFILE="minimal" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-    - LANGCODE="en" PROFILE="standard" DB_TYPE="mysql" DB_HOST="localhost"
-    - LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite"
-    - LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-    - LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql" DB_HOST="localhost"
-    - LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite"
-    - LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  - TATA="tata"
+  - TOTO="toto"
+  matrix:
+  - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
+  - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
+  - LANGCODE="en" PROFILE="minimal" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
+  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="sqlite"
+  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  - LANGCODE="en" PROFILE="standard" DB_TYPE="mysql" DB_HOST="localhost"
+  - LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite"
+  - LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  - LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql" DB_HOST="localhost"
+  - LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite"
+  - LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 matrix:
   fast_finish: true
