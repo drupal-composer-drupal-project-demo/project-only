@@ -20,12 +20,12 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: SKELETON_VERSION="dev-master@dev"
+    env: DRUPAL_VERSION="@alpha"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: SKELETON_VERSION="dev-master@dev"
+  - env: DRUPAL_VERSION="@alpha"
 
 before_install:
 - install --directory .travis/bin
@@ -38,6 +38,7 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
+- if [[ -v DRUPAL_VERSION ]]; then composer require --no-update drupal/core $DRUPAL_VERSION; fi
 - composer install
 
 before_script:
@@ -61,7 +62,7 @@ before_script:
 # - ls -R --color var
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
-- ../vendor/bin/drupal site:install  standard
+- ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
   --langcode="en"
   --db-type="sqlite"
   --site-name="Project Only"
