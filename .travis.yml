@@ -74,7 +74,7 @@ before_script:
 - ../vendor/bin/drupal server --yes --no-interaction --learning &
 
 script:
-- sleep .1
+- sleep 1
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
 - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
 
