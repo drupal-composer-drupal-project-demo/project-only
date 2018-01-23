@@ -29,22 +29,21 @@ env:
   matrix:
     - DB_TYPE="mysql" DB_HOST="localhost"
     - DB_TYPE="sqlite"
-    # - DB_TYPE="postgresql" DB_HOST="/var/run/postgresql"
-    - DB_TYPE="pgsql" DB_HOST="/var/run/postgresql"
+    - DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 matrix:
   fast_finish: true
   include:
   - php: 7.2
     env:
-    - DRUPAL_VERSION="^8@alpha"
+    - DRUPAL_VERSION="^8.5@alpha"
     - DB_TYPE="mysql" DB_HOST="localhost"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
   - env:
-    - DRUPAL_VERSION="^8@alpha"
+    - DRUPAL_VERSION="^8.5@alpha"
 
 before_install:
 - install --directory .travis/bin
@@ -90,6 +89,7 @@ before_script:
   --langcode="en"
   --db-type=$DB_TYPE
   --db-host=$DB_HOST
+  --db-port=$DB_PORT
   --db-name="travis_ci_test"
   --db-user="travis"
   --db-pass=""
@@ -98,8 +98,6 @@ before_script:
   --account-name="admin"
   --account-mail="admin@example.com"
   --account-pass="admin"
-
-  # --db-port="3306"
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
