@@ -11,14 +11,17 @@ cache:
     - $HOME/.composer/cache/files
 
 php: # symfony/skeleton requires ^7.0.8
-- 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
+# - 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
 - 7.1
-- 7.2
-- nightly
+# - 7.2
+# - nightly
 
 addons:
   mariadb: # '10.0' # Do not know about other versions...
-  postgresql: # "9.6" # Most recent with trusty is 9.6
+  # postgresql: # "9.6" # Most recent with trusty is 9.6
+
+services:
+  - postgresql
 
 env:
   global:
@@ -31,12 +34,14 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: DRUPAL_VERSION="^8@alpha"
+    env:
+    - DRUPAL_VERSION="^8@alpha"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: DRUPAL_VERSION="^8@alpha"
+  - env:
+    - DRUPAL_VERSION="^8@alpha"
 
 before_install:
 - install --directory .travis/bin
