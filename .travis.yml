@@ -61,13 +61,13 @@ before_script:
 # - ls -R --color var
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
-- ../vendor/bin/drupal site:install  standard  \
-  --langcode="en"  \
-  --db-type="sqlite"  \
-  --site-name="Project Only"  \
-  --site-mail="admin@example.com"  \
-  --account-name="admin"  \
-  --account-mail="admin@example.com"  \
+- ../vendor/bin/drupal site:install  standard
+  --langcode="en"
+  --db-type="sqlite"
+  --site-name="Project Only"
+  --site-mail="admin@example.com"
+  --account-name="admin"
+  --account-mail="admin@example.com"
   --account-pass="admin"
 
 - ../vendor/bin/drupal server --yes --no-interaction --learning &
