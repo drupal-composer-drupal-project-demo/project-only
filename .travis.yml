@@ -16,16 +16,27 @@ php: # symfony/skeleton requires ^7.0.8
 - 7.2
 - nightly
 
+addons:
+  mariadb # : '10.0' # Do not know about other versions...
+  postgresql # : "9.6" # Most recent with trusty is 9.6
+
+env:
+  global:
+  matrix:
+    - DB_TYPE="mysql" DB_HOST="localhost"
+    - DB_TYPE="sqlite"
+    - DB_TYPE="postgresql" DB_HOST="/var/run/postgresql"
+
 matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: DRUPAL_VERSION="^8.5.0-alpha1@alpha"
+    env: DRUPAL_VERSION="^8@alpha"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: DRUPAL_VERSION="^8.5.0-alpha1@alpha"
+  - env: DRUPAL_VERSION="^8@alpha"
 
 before_install:
 - install --directory .travis/bin
@@ -38,7 +49,7 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
-- if [[ -v DRUPAL_VERSION ]]; then composer -vvv require --no-update drupal/core:$DRUPAL_VERSION; fi
+- if [[ -v DRUPAL_VERSION ]]; then composer -vv require --no-update drupal/core:$DRUPAL_VERSION; fi
 - composer install
 
 before_script:
@@ -62,9 +73,16 @@ before_script:
 # - ls -R --color var
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
+- mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
+- psql -c 'create database travis_ci_test;' -U postgres # --encoding=UTF8 --owner=username 
 - ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
   --langcode="en"
-  --db-type="sqlite"
+  --db-type=$DB_TYPE
+  --db-host=$DB_HOST
+  --db-name="travis_ci_test"
+  --db-user="travis"
+  --db-pass=""
+  --db-port="3306"
   --site-name="Project Only"
   --site-mail="admin@example.com"
   --account-name="admin"
