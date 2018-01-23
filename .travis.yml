@@ -29,7 +29,8 @@ env:
   matrix:
     - DB_TYPE="mysql" DB_HOST="localhost"
     - DB_TYPE="sqlite"
-    - DB_TYPE="postgresql" DB_HOST="/var/run/postgresql"
+    # - DB_TYPE="postgresql" DB_HOST="/var/run/postgresql"
+    - DB_TYPE="pgsql" DB_HOST="/var/run/postgresql"
 
 matrix:
   fast_finish: true
@@ -96,9 +97,8 @@ before_script:
   --account-mail="admin@example.com"
   --account-pass="admin"
 
-- ../vendor/bin/drush core-requirements
 - ../vendor/bin/drush core-status
-- ../vendor/bin/drush new-status
+- ../vendor/bin/drush core-requirements
 - ../vendor/bin/drupal server --yes --no-interaction --learning &
 
 script:
