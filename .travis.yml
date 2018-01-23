@@ -82,7 +82,8 @@ before_script:
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
 - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
-- psql -c 'create database travis_ci_test;' -U postgres # --encoding=UTF8 --owner=username 
+- psql -c 'create database travis_ci_test;' -U postgres # --encoding=UTF8 --owner=username
+- psql --command="\l"
 - ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
   --langcode="en"
   --db-type=$DB_TYPE
@@ -90,7 +91,7 @@ before_script:
   --db-name="travis_ci_test"
   --db-user="travis"
   --db-pass=""
-  --db-port="3306"
+  # --db-port="3306"
   --site-name="Project Only"
   --site-mail="admin@example.com"
   --account-name="admin"
