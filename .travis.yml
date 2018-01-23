@@ -88,6 +88,7 @@ matrix:
   - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
+- echo $T
 - install --directory .travis/bin
 # - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
 - wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker
