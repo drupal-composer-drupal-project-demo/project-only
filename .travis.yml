@@ -36,11 +36,17 @@ matrix:
   include:
   - php: 7.2
     env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  - php: 7.2
+    env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  - php: 7.2
+    env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
   - env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  - env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  - env: DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
 - install --directory .travis/bin
@@ -78,8 +84,6 @@ before_script:
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
 - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
-- echo 'tata$USER;'
-- echo "tata$USER;"
 - psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=username
 - psql --command="\l" -U postgres
 - ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
