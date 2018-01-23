@@ -69,7 +69,7 @@ matrix:
   - php: 7.2
     env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
   allow_failures:
-  - php: 7.0 # sensiolabs/security-checker 4.1.7
+  # - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
   - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
