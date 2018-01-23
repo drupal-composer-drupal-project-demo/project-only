@@ -27,8 +27,8 @@ services:
 env:
   global:
   matrix:
-  - TATA="tata"
-  - TOTO="toto"
+  - T="tata"
+  - T="toto"
   matrix:
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
