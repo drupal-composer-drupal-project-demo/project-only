@@ -20,12 +20,12 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: DRUPAL_VERSION="@alpha"
+    env: DRUPAL_VERSION="^8.5.0-alpha1@alpha"
   allow_failures:
   - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: DRUPAL_VERSION="@alpha"
+  - env: DRUPAL_VERSION="^8.5.0-alpha1@alpha"
 
 before_install:
 - install --directory .travis/bin
@@ -38,7 +38,7 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
-- if [[ -v DRUPAL_VERSION ]]; then composer --verbose require --no-update drupal/core:$DRUPAL_VERSION; fi
+- if [[ -v DRUPAL_VERSION ]]; then composer -vvv require --no-update drupal/core:$DRUPAL_VERSION; fi
 - composer install
 
 before_script:
@@ -57,7 +57,7 @@ before_script:
 - ../vendor/bin/drupal help site:new # Looks like download.
 - ../vendor/bin/drupal help site:install # Maybe installation: basic configuration
 - ../vendor/bin/drupal help server
-- ../vendor/bin/drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings.
+- ../vendor/bin/drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
 # - ls -R --color bin config public src
 # - ls -R --color var
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
