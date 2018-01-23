@@ -96,6 +96,9 @@ before_script:
   --account-mail="admin@example.com"
   --account-pass="admin"
 
+- ../vendor/bin/drush core-requirements
+- ../vendor/bin/drush core-status
+- ../vendor/bin/drush new-status
 - ../vendor/bin/drupal server --yes --no-interaction --learning &
 
 script:
