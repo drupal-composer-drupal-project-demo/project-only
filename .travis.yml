@@ -38,7 +38,7 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
-- if [[ -v DRUPAL_VERSION ]]; then composer require --no-update drupal/core $DRUPAL_VERSION; fi
+- if [[ -v DRUPAL_VERSION ]]; then composer --verbose require --no-update drupal/core:$DRUPAL_VERSION; fi
 - composer install
 
 before_script:
@@ -57,7 +57,7 @@ before_script:
 - ../vendor/bin/drupal help site:new # Looks like download.
 - ../vendor/bin/drupal help site:install # Maybe installation: basic configuration
 - ../vendor/bin/drupal help server
-- ../vendor/bin/drush
+- ../vendor/bin/drush | cat # drush/drush 8.1.15 does not fold and has lots of warnings.
 # - ls -R --color bin config public src
 # - ls -R --color var
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
@@ -74,7 +74,7 @@ before_script:
 - ../vendor/bin/drupal server --yes --no-interaction --learning &
 
 script:
-- sleep 1
+- sleep 3
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
 - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
 
