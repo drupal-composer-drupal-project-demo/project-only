@@ -91,12 +91,13 @@ before_script:
   --db-name="travis_ci_test"
   --db-user="travis"
   --db-pass=""
-  # --db-port="3306"
   --site-name="Project Only"
   --site-mail="admin@example.com"
   --account-name="admin"
   --account-mail="admin@example.com"
   --account-pass="admin"
+
+  # --db-port="3306"
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
