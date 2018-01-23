@@ -82,6 +82,8 @@ before_script:
 # - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
 # - ../vendor/bin/drupal quick:start --yes --no-interaction
 - mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
+- echo 'tata$USER;'
+- echo "tata$USER;"
 - psql -c 'create database travis_ci_test;' -U postgres # --encoding=UTF8 --owner=username
 - psql --command="\l" -U postgres
 - ../vendor/bin/drupal site:install  standard --yes --no-interaction --verbose
