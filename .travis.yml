@@ -17,8 +17,8 @@ php: # symfony/skeleton requires ^7.0.8
 - nightly
 
 addons:
-  mariadb # : '10.0' # Do not know about other versions...
-  postgresql # : "9.6" # Most recent with trusty is 9.6
+  mariadb: # '10.0' # Do not know about other versions...
+  postgresql: # "9.6" # Most recent with trusty is 9.6
 
 env:
   global:
