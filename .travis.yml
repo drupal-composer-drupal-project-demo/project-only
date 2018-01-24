@@ -86,10 +86,11 @@ matrix:
   - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
-- echo $T
 - install --directory .travis/bin
 # - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
-- wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker
+- if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
+    wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker;
+  fi
 
 # - pip install pygments # but now pygmentize is no more used right here.
 - go get -u github.com/jingweno/ccat
@@ -97,7 +98,9 @@ before_install:
 install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
 - cd my-project
-- if [[ -v DRUPAL_VERSION ]]; then composer -vv require --no-update drupal/core:$DRUPAL_VERSION; fi
+- if [[ -v DRUPAL_VERSION ]]; then
+    composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
+  fi
 - composer install
 
 before_script:
@@ -111,6 +114,7 @@ before_script:
 - cd web
 - ls --color
 - ls --color profiles
+- ls --color core/profiles
 - ../vendor/bin/drupal
 - ../vendor/bin/drupal help init # Copy configuration files.
 - ../vendor/bin/drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
@@ -119,12 +123,8 @@ before_script:
 - ../vendor/bin/drupal help site:install # Maybe installation: basic configuration
 - ../vendor/bin/drupal help server
 - ../vendor/bin/drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
-# - ls -R --color bin config public src
-# - ls -R --color var
-# - ../vendor/bin/drupal init --yes --destination=~/.console/ --no-interaction
-# - ../vendor/bin/drupal quick:start --yes --no-interaction
-- mysql -e 'CREATE DATABASE IF NOT EXISTS travis_ci_test;'
-- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=username
+# - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
+- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
 - psql --command="\l" -U postgres
 - ../vendor/bin/drupal site:install $PROFILE --yes --no-interaction --verbose
   --langcode=$LANGCODE
@@ -142,8 +142,7 @@ before_script:
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
-- ../vendor/bin/drupal server --yes --no-interaction --learning &
-- printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
+- ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
 script:
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
