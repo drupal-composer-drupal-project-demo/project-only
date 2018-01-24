@@ -119,11 +119,15 @@ before_script:
 - ../vendor/bin/drupal help init # Copy configuration files.
 - ../vendor/bin/drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
 - ../vendor/bin/drupal help quick:start # Maybe shortcut for chain --file=~/.console/chain/quick-start.yml
-- ../vendor/bin/drupal help site:new # Looks like download.
+- ../vendor/bin/drupal help site:new # Download.
+- ../vendor/bin/drupal help check
 - ../vendor/bin/drupal help site:install # Maybe installation: basic configuration
 - ../vendor/bin/drupal help server
 - ../vendor/bin/drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
+- ../vendor/bin/drush help runserver
+- ../vendor/bin/drupal check
 # - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
+- psql --command="\l" -U postgres
 - psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
 - psql --command="\l" -U postgres
 - ../vendor/bin/drupal site:install $PROFILE --yes --no-interaction --verbose
@@ -142,6 +146,8 @@ before_script:
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
+- ../vendor/bin/drush pm-list
+- ../vendor/bin/drush pm-projectinfo
 - ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
 script:
