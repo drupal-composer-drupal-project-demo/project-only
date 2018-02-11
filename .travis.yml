@@ -178,7 +178,7 @@ before_script:
 - ../vendor/bin/drush pm-enable devel
 
 - composer --working-dir=.. require drupal/webform
-- ../vendor/bin/drush pm-enable webform
+- ../vendor/bin/drush pm-enable --yes webform
 
 - composer --working-dir=.. require drupal/video_embed_field
 - ../vendor/bin/drush pm-enable video_embed_field
