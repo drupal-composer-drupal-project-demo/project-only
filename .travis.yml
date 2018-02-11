@@ -184,7 +184,7 @@ before_script:
 - ../vendor/bin/drush pm-enable --yes video_embed_field
 
 - composer --working-dir=.. require drupal/redirect
-- ../vendor/bin/drush pm-enable redirect
+- ../vendor/bin/drush pm-enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
 - composer --working-dir=.. require drupal/entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable entity_browser
