@@ -153,43 +153,43 @@ before_script:
 - ../vendor/bin/drush help pm-enable
 
 
-- composer --working-dir=.. require admin_toolbar
+- composer --working-dir=.. require drupal/admin_toolbar
 - ../vendor/bin/drush pm-enable admin_toolbar
 
-- composer --working-dir=.. require token
+- composer --working-dir=.. require drupal/token
 - ../vendor/bin/drush pm-enable token
 
-- composer --working-dir=.. require pathauto
+- composer --working-dir=.. require drupal/pathauto
 - ../vendor/bin/drush pm-enable pathauto
 
-- composer --working-dir=.. require metatag #?
+- composer --working-dir=.. require drupal/metatag #?
 - ../vendor/bin/drush pm-enable metatag
 
-- composer --working-dir=.. require entity_reference_revisions #?
+- composer --working-dir=.. require drupal/entity_reference_revisions #?
 - ../vendor/bin/drush pm-enable entity_reference_revisions
 
-- composer --working-dir=.. require paragraphs #?
+- composer --working-dir=.. require drupal/paragraphs #?
 - ../vendor/bin/drush pm-enable paragraphs
 
-- composer --working-dir=.. require field_group #?
+- composer --working-dir=.. require drupal/field_group #?
 - ../vendor/bin/drush pm-enable field_group
 
-- composer --working-dir=.. require devel #?
+- composer --working-dir=.. require drupal/devel #?
 - ../vendor/bin/drush pm-enable devel
 
-- composer --working-dir=.. require webform
+- composer --working-dir=.. require drupal/webform
 - ../vendor/bin/drush pm-enable webform
 
-- composer --working-dir=.. require video_embed_field
+- composer --working-dir=.. require drupal/video_embed_field
 - ../vendor/bin/drush pm-enable video_embed_field
 
-- composer --working-dir=.. requiree redirect
+- composer --working-dir=.. requiree drupal/redirect
 - ../vendor/bin/drush pm-enable redirect
 
-- composer --working-dir=.. require entity_browser # Is it really needed?
+- composer --working-dir=.. require drupal/entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable entity_browser
 
-- composer --working-dir=.. require media_entity_browser # Is it really needed?
+- composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable media_entity_browser
 
 
