@@ -160,7 +160,7 @@ before_script:
 - ../vendor/bin/drush pm-enable token
 
 - composer --working-dir=.. require drupal/pathauto
-- ../vendor/bin/drush pm-enable pathauto
+- ../vendor/bin/drush pm-enable --yes pathauto
 
 - composer --working-dir=.. require drupal/metatag #?
 - ../vendor/bin/drush pm-enable metatag
