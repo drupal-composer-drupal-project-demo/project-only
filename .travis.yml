@@ -150,6 +150,13 @@ before_script:
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
+
+- ../vendor/bin/drush pm-enable admin_toolbar
+- ../vendor/bin/drush pm-enable token
+- ../vendor/bin/drush pm-enable webform
+- ../vendor/bin/drush pm-enable video_embed_field
+- ../vendor/bin/drush pm-enable media_entity_browser # Is it really needed?
+
 - ../vendor/bin/drush pm-list
 # - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
 - ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
