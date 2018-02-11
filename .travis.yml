@@ -10,9 +10,9 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-php: # symfony/skeleton requires ^7.0.8
+php:
 - 5.6
-- 7.0 # SYMFONY_VERSION="^3.4" only one version of skeleton working with php 7.0
+- 7.0
 - 7.1 # Recommanded for Drupal 8.4
 - 7.2 # for Drupal 8.5+
 - nightly
@@ -104,7 +104,7 @@ install:
 - composer install
 
 before_script:
-- composer show
+- composer show --latest
 # - bin/console
 - ls --color
 - ls drush
