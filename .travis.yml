@@ -197,8 +197,8 @@ before_script:
 #  Installing drupal/media_entity (1.7.0): Downloading (100%)
 #  Installing drupal/media_entity_browser (1.0.0-beta3): Downloading (100%)
 
-- composer show --latest
-- composer show --tree
+- composer --working-dir=.. show --latest
+- composer --working-dir=.. show --tree
 - ../vendor/bin/drush pm-list
 # - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
 - ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
