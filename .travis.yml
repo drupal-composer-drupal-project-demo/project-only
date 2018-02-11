@@ -152,20 +152,46 @@ before_script:
 - ../vendor/bin/drush core-requirements
 - ../vendor/bin/drush help pm-enable
 
-- ../composer require admin_toolbar
+
+- composer require admin_toolbar
 - ../vendor/bin/drush pm-enable admin_toolbar
+
+- composer require token
 - ../vendor/bin/drush pm-enable token
+
+- composer require pathauto
 - ../vendor/bin/drush pm-enable pathauto
-- ../vendor/bin/drush pm-enable metatag #?
-- ../vendor/bin/drush pm-enable entity_reference_revisions #?
-- ../vendor/bin/drush pm-enable paragraphs #?
-- ../vendor/bin/drush pm-enable field_group #?
-- ../vendor/bin/drush pm-enable devel #?
+
+- composer require metatag #?
+- ../vendor/bin/drush pm-enable metatag
+
+- composer require entity_reference_revisions #?
+- ../vendor/bin/drush pm-enable entity_reference_revisions
+
+- composer require paragraphs #?
+- ../vendor/bin/drush pm-enable paragraphs
+
+- composer require field_group #?
+- ../vendor/bin/drush pm-enable field_group
+
+- composer require devel #?
+- ../vendor/bin/drush pm-enable devel
+
+- composer require webform
 - ../vendor/bin/drush pm-enable webform
+
+- composer require video_embed_field
 - ../vendor/bin/drush pm-enable video_embed_field
+
+- composer requiree redirect
 - ../vendor/bin/drush pm-enable redirect
-- ../vendor/bin/drush pm-enable entity_browser # Is it really needed?
-- ../vendor/bin/drush pm-enable media_entity_browser # Is it really needed?
+
+- composer require entity_browser # Is it really needed?
+- ../vendor/bin/drush pm-enable entity_browser
+
+- composer require media_entity_browser # Is it really needed?
+- ../vendor/bin/drush pm-enable media_entity_browser
+
 
 - ../vendor/bin/drush pm-list
 # - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
