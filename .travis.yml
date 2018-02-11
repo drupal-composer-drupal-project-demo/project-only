@@ -105,6 +105,10 @@ install:
 
 before_script:
 - composer show --latest
+- composer show --tree
+- composer why --tree phpunit/phpunit
+- composer why --tree symfony-cmf/routing
+- composer why --tree symfony/http-kernel
 # - bin/console
 - ls --color
 - ls drush
