@@ -189,10 +189,16 @@ before_script:
 - composer --working-dir=.. require drupal/entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable entity_browser
 
-- composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
-- ../vendor/bin/drush pm-enable --yes media_entity_browser # The following module(s) will be enabled: media_entity_browser, media_entity, entity
+# - composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
+# - ../vendor/bin/drush pm-enable --yes media_entity_browser
+# The following module(s) will be enabled: media_entity_browser, media_entity, entity
+# Error: Call to a member function getConfigDependencyKey() on null in /home/travis/build/drupal-composer-drupal-project-demo/project-only/my-project/web/modules/contrib/entity_browser/src/Plugin/EntityBrowser/Widget/View.php on line 277
+#  Installing drupal/entity (1.0.0-beta1): Downloading (100%)
+#  Installing drupal/media_entity (1.7.0): Downloading (100%)
+#  Installing drupal/media_entity_browser (1.0.0-beta3): Downloading (100%)
 
-
+- composer show --latest
+- composer show --tree
 - ../vendor/bin/drush pm-list
 # - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
 - ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
