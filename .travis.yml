@@ -153,43 +153,43 @@ before_script:
 - ../vendor/bin/drush help pm-enable
 
 
-- composer require admin_toolbar
+- composer --working-dir=.. require admin_toolbar
 - ../vendor/bin/drush pm-enable admin_toolbar
 
-- composer require token
+- composer --working-dir=.. require token
 - ../vendor/bin/drush pm-enable token
 
-- composer require pathauto
+- composer --working-dir=.. require pathauto
 - ../vendor/bin/drush pm-enable pathauto
 
-- composer require metatag #?
+- composer --working-dir=.. require metatag #?
 - ../vendor/bin/drush pm-enable metatag
 
-- composer require entity_reference_revisions #?
+- composer --working-dir=.. require entity_reference_revisions #?
 - ../vendor/bin/drush pm-enable entity_reference_revisions
 
-- composer require paragraphs #?
+- composer --working-dir=.. require paragraphs #?
 - ../vendor/bin/drush pm-enable paragraphs
 
-- composer require field_group #?
+- composer --working-dir=.. require field_group #?
 - ../vendor/bin/drush pm-enable field_group
 
-- composer require devel #?
+- composer --working-dir=.. require devel #?
 - ../vendor/bin/drush pm-enable devel
 
-- composer require webform
+- composer --working-dir=.. require webform
 - ../vendor/bin/drush pm-enable webform
 
-- composer require video_embed_field
+- composer --working-dir=.. require video_embed_field
 - ../vendor/bin/drush pm-enable video_embed_field
 
-- composer requiree redirect
+- composer --working-dir=.. requiree redirect
 - ../vendor/bin/drush pm-enable redirect
 
-- composer require entity_browser # Is it really needed?
+- composer --working-dir=.. require entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable entity_browser
 
-- composer require media_entity_browser # Is it really needed?
+- composer --working-dir=.. require media_entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable media_entity_browser
 
 
