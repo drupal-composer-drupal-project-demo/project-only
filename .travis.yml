@@ -183,7 +183,7 @@ before_script:
 - composer --working-dir=.. require drupal/video_embed_field
 - ../vendor/bin/drush pm-enable --yes video_embed_field
 
-- composer --working-dir=.. requiree drupal/redirect
+- composer --working-dir=.. require drupal/redirect
 - ../vendor/bin/drush pm-enable redirect
 
 - composer --working-dir=.. require drupal/entity_browser # Is it really needed?
