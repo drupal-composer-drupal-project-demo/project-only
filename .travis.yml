@@ -181,13 +181,32 @@ before_script:
 - ../vendor/bin/drush pm-enable --yes webform # The following module(s) will be enabled: webform, contribute
 
 - composer --working-dir=.. require drupal/video_embed_field
-- ../vendor/bin/drush pm-enable --yes video_embed_field # The following module(s) will be enabled: video_embed_field, image
+- ../vendor/bin/drush pm-enable -y video_embed_wysiwyg
+# video_embed_field: The following module(s) will be enabled: video_embed_field, image
+
+- composer --working-dir=.. require drupal/video_embed_facebook
+- ../vendor/bin/drush pm-enable -y video_embed_facebook
+
+- composer --working-dir=.. require drupal/video_embed_dailymotion
+- ../vendor/bin/drush pm-enable -y video_embed_dailymotion
+
+- composer --working-dir=.. require drupal/video_embed_instagram
+- ../vendor/bin/drush pm-enable -y video_embed_instagram
+
+- composer --working-dir=.. require drupal/video_embed_ted
+- ../vendor/bin/drush pm-enable -y video_embed_ted
+
+- composer --working-dir=.. require drupal/video_embed_html5
+- ../vendor/bin/drush pm-enable -y video_embed_html5
 
 - composer --working-dir=.. require drupal/redirect
 - ../vendor/bin/drush pm-enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
 - composer --working-dir=.. require drupal/entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable entity_browser
+
+- composer --working-dir=.. require drupal/pixture_reloaded
+- ../vendor/bin/drush pm-enable -y pixture_reloaded
 
 # - composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
 # - ../vendor/bin/drush pm-enable --yes media_entity_browser
