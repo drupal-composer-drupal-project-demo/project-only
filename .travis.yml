@@ -154,13 +154,13 @@ before_script:
 
 
 - composer --working-dir=.. require drupal/admin_toolbar
-- ../vendor/bin/drush pm-enable --yes admin_toolbar
+- ../vendor/bin/drush pm-enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
 - composer --working-dir=.. require drupal/token
 - ../vendor/bin/drush pm-enable token
 
 - composer --working-dir=.. require drupal/pathauto
-- ../vendor/bin/drush pm-enable --yes pathauto
+- ../vendor/bin/drush pm-enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
 
 - composer --working-dir=.. require drupal/metatag #?
 - ../vendor/bin/drush pm-enable metatag
@@ -178,10 +178,10 @@ before_script:
 - ../vendor/bin/drush pm-enable devel
 
 - composer --working-dir=.. require drupal/webform
-- ../vendor/bin/drush pm-enable --yes webform
+- ../vendor/bin/drush pm-enable --yes webform # The following module(s) will be enabled: webform, contribute
 
 - composer --working-dir=.. require drupal/video_embed_field
-- ../vendor/bin/drush pm-enable --yes video_embed_field
+- ../vendor/bin/drush pm-enable --yes video_embed_field # The following module(s) will be enabled: video_embed_field, image
 
 - composer --working-dir=.. require drupal/redirect
 - ../vendor/bin/drush pm-enable --yes redirect # The following module(s) will be enabled: redirect, link, views
@@ -190,7 +190,7 @@ before_script:
 - ../vendor/bin/drush pm-enable entity_browser
 
 - composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
-- ../vendor/bin/drush pm-enable media_entity_browser
+- ../vendor/bin/drush pm-enable --yes media_entity_browser # The following module(s) will be enabled: media_entity_browser, media_entity, entity
 
 
 - ../vendor/bin/drush pm-list
