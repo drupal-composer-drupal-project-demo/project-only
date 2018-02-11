@@ -154,7 +154,7 @@ before_script:
 
 
 - composer --working-dir=.. require drupal/admin_toolbar
-- ../vendor/bin/drush pm-enable admin_toolbar
+- ../vendor/bin/drush pm-enable --yes admin_toolbar
 
 - composer --working-dir=.. require drupal/token
 - ../vendor/bin/drush pm-enable token
