@@ -150,11 +150,21 @@ before_script:
 
 - ../vendor/bin/drush core-status
 - ../vendor/bin/drush core-requirements
+- ../vendor/bin/drush help pm-enable
 
+- ../composer require admin_toolbar
 - ../vendor/bin/drush pm-enable admin_toolbar
 - ../vendor/bin/drush pm-enable token
+- ../vendor/bin/drush pm-enable pathauto
+- ../vendor/bin/drush pm-enable metatag #?
+- ../vendor/bin/drush pm-enable entity_reference_revisions #?
+- ../vendor/bin/drush pm-enable paragraphs #?
+- ../vendor/bin/drush pm-enable field_group #?
+- ../vendor/bin/drush pm-enable devel #?
 - ../vendor/bin/drush pm-enable webform
 - ../vendor/bin/drush pm-enable video_embed_field
+- ../vendor/bin/drush pm-enable redirect
+- ../vendor/bin/drush pm-enable entity_browser # Is it really needed?
 - ../vendor/bin/drush pm-enable media_entity_browser # Is it really needed?
 
 - ../vendor/bin/drush pm-list
