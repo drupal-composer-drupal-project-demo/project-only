@@ -206,7 +206,7 @@ before_script:
 - ../vendor/bin/drush pm-enable entity_browser
 
 - composer --working-dir=.. require drupal/pixture_reloaded
-- ../vendor/bin/drush pm-enable -y pixture_reloaded
+# - ../vendor/bin/drush pm-enable -y pixture_reloaded
 
 # - composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
 # - ../vendor/bin/drush pm-enable --yes media_entity_browser
