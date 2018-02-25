@@ -4,7 +4,7 @@ addons:
   apt:
     packages:
     - elinks # For dysplaying php files on console.
-    - empty-expect
+    # - empty-expect
 
 cache:
   directories:
@@ -15,7 +15,7 @@ php:
 - 7.2 # For Drupal 8.5+
 - 7.1 # Recommanded for Drupal 8.4
 # - 7.0 # Debian 9
-- 5.6 # Minimum for Drush 9
+- 5.6 # Minimum for Drush 9, Debian 8
 # - 5.5 # Minimum for Drupal 8
 
 # addons:
@@ -28,6 +28,7 @@ services:
 
 env:
   global:
+  - DRUPAL_DEV_VERSION="^8.5@alpha"
   matrix:
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
@@ -46,7 +47,7 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+    env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION=$DRUPAL_DEV_VERSION DB_TYPE="mysql" DB_HOST="localhost"
   - php: 7.2
     env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
   - php: 7.2
@@ -111,11 +112,12 @@ matrix:
   - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
-- install --directory .travis/bin
+# - install --directory .travis/bin
 # - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
-- if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
-    wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker;
-  fi
+# - if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
+#     wget http://get.sensiolabs.org/security-checker.phar --output-document=.travis/bin/security-checker;
+#   fi
+- composer global require --dev sensiolabs/security-checker
 
 # - pip install pygments # but now pygmentize is no more used right here.
 - go get -u github.com/jingweno/ccat
@@ -244,6 +246,7 @@ before_script:
 #  Installing drupal/media_entity (1.7.0): Downloading (100%)
 #  Installing drupal/media_entity_browser (1.0.0-beta3): Downloading (100%)
 
+- composer global show --latest
 - composer --working-dir=.. show --latest
 - composer --working-dir=.. show --tree
 - ../vendor/bin/drush pm:list
@@ -261,5 +264,7 @@ script:
 - if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
     php ../.travis/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock;
   fi
+- ~/.composer/vendor/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
+- ~/.composer/vendor/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock ~/.composer/composer.lock
 - 'curl -H "Accept: text/plain" https://security.sensiolabs.org/check_lock -F lock=@composer.lock'
   #^ This checks that the application doesn't use dependencies with known security vulnerabilities
