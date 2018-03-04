@@ -181,68 +181,68 @@ before_script:
 - vendor/bin/drush core:status
 - vendor/bin/drush core:requirements
 - vendor/bin/drush
-- ../vendor/bin/drush help pm:enable
-- ../vendor/bin/drush help theme:enable
+- vendor/bin/drush help pm:enable
+- vendor/bin/drush help theme:enable
 
 
-- composer --working-dir=.. require drupal/admin_toolbar
-- ../vendor/bin/drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
+- composer require drupal/admin_toolbar
+- vendor/bin/drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
-- composer --working-dir=.. require drupal/token
-- ../vendor/bin/drush pm:enable token
+- composer require drupal/token
+- vendor/bin/drush pm:enable token
 
-- composer --working-dir=.. require drupal/pathauto
-- ../vendor/bin/drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
+- composer require drupal/pathauto
+- vendor/bin/drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
 
-- composer --working-dir=.. require drupal/metatag #?
-- ../vendor/bin/drush pm:enable metatag
+- composer require drupal/metatag #?
+- vendor/bin/drush pm:enable metatag
 
-- composer --working-dir=.. require drupal/entity_reference_revisions #?
-- ../vendor/bin/drush pm:enable entity_reference_revisions
+- composer require drupal/entity_reference_revisions #?
+- vendor/bin/drush pm:enable entity_reference_revisions
 
-- composer --working-dir=.. require drupal/paragraphs #?
-- ../vendor/bin/drush pm:enable paragraphs
+- composer require drupal/paragraphs #?
+- vendor/bin/drush pm:enable paragraphs
 
-- composer --working-dir=.. require drupal/field_group #?
-- ../vendor/bin/drush pm:enable field_group
+- composer require drupal/field_group #?
+- vendor/bin/drush pm:enable field_group
 
-- composer --working-dir=.. require drupal/devel #?
-- ../vendor/bin/drush pm:enable devel
+- composer require drupal/devel #?
+- vendor/bin/drush pm:enable devel
 
-- composer --working-dir=.. require drupal/webform
-- ../vendor/bin/drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
+- composer require drupal/webform
+- vendor/bin/drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
 
-- composer --working-dir=.. require drupal/video_embed_field
-- ../vendor/bin/drush pm:enable -y video_embed_wysiwyg
+- composer require drupal/video_embed_field
+- vendor/bin/drush pm:enable -y video_embed_wysiwyg
 # video_embed_field: The following module(s) will be enabled: video_embed_field, image
 
-- composer --working-dir=.. require drupal/video_embed_facebook
-- ../vendor/bin/drush pm:enable -y video_embed_facebook
+- composer require drupal/video_embed_facebook
+- vendor/bin/drush pm:enable -y video_embed_facebook
 
-- composer --working-dir=.. require drupal/video_embed_dailymotion
-- ../vendor/bin/drush pm:enable -y video_embed_dailymotion
+- composer require drupal/video_embed_dailymotion
+- vendor/bin/drush pm:enable -y video_embed_dailymotion
 
-- composer --working-dir=.. require drupal/video_embed_instagram
-- ../vendor/bin/drush pm:enable -y video_embed_instagram
+- composer require drupal/video_embed_instagram
+- vendor/bin/drush pm:enable -y video_embed_instagram
 
-- composer --working-dir=.. require drupal/video_embed_ted
-- ../vendor/bin/drush pm:enable -y video_embed_ted
+- composer require drupal/video_embed_ted
+- vendor/bin/drush pm:enable -y video_embed_ted
 
-- composer --working-dir=.. require drupal/video_embed_html5
-- ../vendor/bin/drush pm:enable -y video_embed_html5
+- composer require drupal/video_embed_html5
+- vendor/bin/drush pm:enable -y video_embed_html5
 
-- composer --working-dir=.. require drupal/redirect
-- ../vendor/bin/drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
+- composer require drupal/redirect
+- vendor/bin/drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
-- composer --working-dir=.. require drupal/entity_browser # Is it really needed?
-- ../vendor/bin/drush pm:enable entity_browser
+- composer require drupal/entity_browser # Is it really needed?
+- vendor/bin/drush pm:enable entity_browser
 
-- composer --working-dir=.. require drupal/pixture_reloaded
-- ../vendor/bin/drush theme:enable -y pixture_reloaded
-- ../vendor/bin/drush config-set --yes system.theme default pixture_reloaded
+- composer require drupal/pixture_reloaded
+- vendor/bin/drush theme:enable -y pixture_reloaded
+- vendor/bin/drush config-set --yes system.theme default pixture_reloaded
 
-# - composer --working-dir=.. require drupal/media_entity_browser # Is it really needed?
-# - ../vendor/bin/drush pm-enable --yes media_entity_browser
+# - composer require drupal/media_entity_browser # Is it really needed?
+# - drush pm-enable --yes media_entity_browser
 # The following module(s) will be enabled: media_entity_browser, media_entity, entity
 # Error: Call to a member function getConfigDependencyKey() on null in /home/travis/build/drupal-composer-drupal-project-demo/project-only/my-project/web/modules/contrib/entity_browser/src/Plugin/EntityBrowser/Widget/View.php on line 277
 #  Installing drupal/entity (1.0.0-beta1): Downloading (100%)
@@ -252,15 +252,15 @@ before_script:
 - composer global show --latest
 - composer --working-dir=.. show --latest
 - composer --working-dir=.. show --tree
-- ../vendor/bin/drush pm:list
+- vendor/bin/drush pm:list
 # - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
-- ../vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
+- vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
 script:
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
 - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
 
-- cd ..
+# - cd ..
 - security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
 - security-checker security:check --end-point=http://security.sensiolabs.org/check_lock ~/.composer/composer.lock
 - 'curl -H "Accept: text/plain" https://security.sensiolabs.org/check_lock -F lock=@composer.lock'
