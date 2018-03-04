@@ -164,7 +164,7 @@ before_script:
 - psql --command="\l" -U postgres
 - psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
 - psql --command="\l" -U postgres
-- vendor/bin/drupal --root=web site:install $PROFILE --yes --no-interaction --verbose
+- vendor/bin/drupal site:install $PROFILE --yes --no-interaction --verbose
   --langcode=$LANGCODE
   --db-type=$DB_TYPE
   --db-host=$DB_HOST
