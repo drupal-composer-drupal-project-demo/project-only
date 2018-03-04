@@ -258,6 +258,28 @@ before_script:
 - composer show --latest
 - composer show --tree
 - drush pm:list
+
+- drush theme:uninstall -y pixture_reloaded
+- drush pm:uninstall -y entity_browser
+- drush pm:uninstall -y redirect
+- drush pm:uninstall -y video_embed_html5
+- drush pm:uninstall -y video_embed_ted
+- drush pm:uninstall -y video_embed_instagram
+- drush pm:uninstall -y video_embed_dailymotion
+- drush pm:uninstall -y video_embed_facebook
+- drush pm:uninstall -y video_embed_wysiwyg
+- drush pm:uninstall -y webform
+- drush pm:uninstall -y devel
+- drush pm:uninstall -y field_group
+- drush pm:uninstall -y paragraphs
+- drush pm:uninstall -y entity_reference_revisions
+- drush pm:uninstall -y metatag
+- drush pm:uninstall -y pathauto
+- drush pm:uninstall -y token
+- drush pm:uninstall -y admin_toolbar
+
+- drush pm:list
+
 # - drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
 - drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
