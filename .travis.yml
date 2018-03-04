@@ -151,22 +151,24 @@ before_script:
 - ls --color
 # - ls --color web/profiles
 # - ls --color web/core/profiles
-- vendor/bin/drupal
-- vendor/bin/drupal help init # Copy configuration files.
-- vendor/bin/drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
-- vendor/bin/drupal help quick:start # Maybe shortcut for chain --file=~/.console/chain/quick-start.yml
-- vendor/bin/drupal help site:new # Download.
-- vendor/bin/drupal help check
-- vendor/bin/drupal help site:install # Maybe installation: basic configuration
-- vendor/bin/drupal help server
-- vendor/bin/drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
-- vendor/bin/drush help runserver
-- vendor/bin/drupal check
+- command -v drupal
+- command -v drush
+- drupal
+- drupal help init # Copy configuration files.
+- drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
+- drupal help quick:start # Maybe shortcut for chain --file=~/.console/chain/quick-start.yml
+- drupal help site:new # Download.
+- drupal help check
+- drupal help site:install # Maybe installation: basic configuration
+- drupal help server
+- drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
+- drush help runserver
+- drupal check
 # - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
 - psql --command="\l" -U postgres
 - psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
 - psql --command="\l" -U postgres
-- vendor/bin/drupal site:install $PROFILE --yes --no-interaction --verbose
+- drupal site:install $PROFILE --yes --no-interaction --verbose
   --langcode=$LANGCODE
   --db-type=$DB_TYPE
   --db-host=$DB_HOST
@@ -180,68 +182,68 @@ before_script:
   --account-mail="admin@example.com"
   --account-pass="admin"
 
-- vendor/bin/drush core:status
-- vendor/bin/drush core:requirements
-- vendor/bin/drush
-- vendor/bin/drush help pm:enable
-- vendor/bin/drush help theme:enable
+- drush core:status
+- drush core:requirements
+- drush
+- drush help pm:enable
+- drush help theme:enable
 
 
 - composer require drupal/admin_toolbar
-- vendor/bin/drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
+- drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
 - composer require drupal/token
-- vendor/bin/drush pm:enable token
+- drush pm:enable token
 
 - composer require drupal/pathauto
-- vendor/bin/drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
+- drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
 
 - composer require drupal/metatag #?
-- vendor/bin/drush pm:enable metatag
+- drush pm:enable metatag
 
 - composer require drupal/entity_reference_revisions #?
-- vendor/bin/drush pm:enable entity_reference_revisions
+- drush pm:enable entity_reference_revisions
 
 - composer require drupal/paragraphs #?
-- vendor/bin/drush pm:enable paragraphs
+- drush pm:enable paragraphs
 
 - composer require drupal/field_group #?
-- vendor/bin/drush pm:enable field_group
+- drush pm:enable field_group
 
 - composer require drupal/devel #?
-- vendor/bin/drush pm:enable devel
+- drush pm:enable devel
 
 - composer require drupal/webform
-- vendor/bin/drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
+- drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
 
 - composer require drupal/video_embed_field
-- vendor/bin/drush pm:enable -y video_embed_wysiwyg
+- drush pm:enable -y video_embed_wysiwyg
 # video_embed_field: The following module(s) will be enabled: video_embed_field, image
 
 - composer require drupal/video_embed_facebook
-- vendor/bin/drush pm:enable -y video_embed_facebook
+- drush pm:enable -y video_embed_facebook
 
 - composer require drupal/video_embed_dailymotion
-- vendor/bin/drush pm:enable -y video_embed_dailymotion
+- drush pm:enable -y video_embed_dailymotion
 
 - composer require drupal/video_embed_instagram
-- vendor/bin/drush pm:enable -y video_embed_instagram
+- drush pm:enable -y video_embed_instagram
 
 - composer require drupal/video_embed_ted
-- vendor/bin/drush pm:enable -y video_embed_ted
+- drush pm:enable -y video_embed_ted
 
 - composer require drupal/video_embed_html5
-- vendor/bin/drush pm:enable -y video_embed_html5
+- drush pm:enable -y video_embed_html5
 
 - composer require drupal/redirect
-- vendor/bin/drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
+- drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
 - composer require drupal/entity_browser # Is it really needed?
-- vendor/bin/drush pm:enable entity_browser
+- drush pm:enable entity_browser
 
 - composer require drupal/pixture_reloaded
-- vendor/bin/drush theme:enable -y pixture_reloaded
-- vendor/bin/drush config-set --yes system.theme default pixture_reloaded
+- drush theme:enable -y pixture_reloaded
+- drush config-set --yes system.theme default pixture_reloaded
 
 # - composer require drupal/media_entity_browser # Is it really needed?
 # - drush pm-enable --yes media_entity_browser
@@ -254,9 +256,9 @@ before_script:
 - composer global show --latest
 - composer show --latest
 - composer show --tree
-- vendor/bin/drush pm:list
-# - ../vendor/bin/drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
-- vendor/bin/drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
+- drush pm:list
+# - drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
+- drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
 script:
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
