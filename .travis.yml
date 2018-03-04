@@ -50,7 +50,9 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION=$DRUPAL_DEV_VERSION DB_TYPE="mysql" DB_HOST="localhost"
+    env:
+    - DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - php: 7.2
     env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
   - php: 7.2
@@ -101,18 +103,20 @@ matrix:
   # - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
-  - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
-  - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-  - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
-  - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
-  - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-  - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
-  - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
-  - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
-  - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
-  - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
-  - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  - env:
+    - DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  # - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  # - env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  # - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  # - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  # - env: LANGCODE="fr" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  # - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  # - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  # - env: LANGCODE="en" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
+  # - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="mysql" DB_HOST="localhost"
+  # - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
+  # - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
 - pwd
