@@ -30,7 +30,7 @@ services:
 env:
   global:
   - DRUPAL_DEV_VERSION="^8.5@alpha"
-  - PATH=~/.composer/vendor/bin:$PATH
+  - PATH=~/.composer/vendor/bin:$(pwd)/my-project/vendor/bin:$PATH
   matrix:
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
@@ -114,6 +114,8 @@ matrix:
   - env: LANGCODE="fr" PROFILE="standard" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="pgsql" DB_HOST="/var/run/postgresql" DB_PORT=5432
 
 before_install:
+- pwd
+- echo $PATH
 # - install --directory .travis/bin
 # - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
 # - if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
