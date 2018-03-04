@@ -128,7 +128,7 @@ before_install:
 - go get -u github.com/jingweno/ccat
 
 install:
-- composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project my-project $SKELETON_VERSION
+- composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 - ls --color
 - cd $DRUPAL_PROJECT_DIR
 - if [[ -v DRUPAL_VERSION ]]; then
