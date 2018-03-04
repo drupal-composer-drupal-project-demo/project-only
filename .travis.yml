@@ -147,8 +147,8 @@ before_script:
 - find . -name profiles
 # - cd web
 - ls --color
-- ls --color profiles
-- ls --color core/profiles
+# - ls --color web/profiles
+# - ls --color web/core/profiles
 - vendor/bin/drupal
 - vendor/bin/drupal help init # Copy configuration files.
 - vendor/bin/drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
