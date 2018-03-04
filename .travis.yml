@@ -189,6 +189,7 @@ before_script:
 - drush help pm:enable
 - drush help theme:enable
 
+- drush pm:list
 
 - composer require drupal/admin_toolbar
 - drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
@@ -244,7 +245,9 @@ before_script:
 
 - composer require drupal/pixture_reloaded
 - drush theme:enable -y pixture_reloaded
-- drush config-set --yes system.theme default pixture_reloaded
+- drush help config:get
+- drush config:get system.theme
+- drush config:set --yes system.theme default pixture_reloaded
 
 # - composer require drupal/media_entity_browser # Is it really needed?
 # - drush pm-enable --yes media_entity_browser
@@ -259,7 +262,7 @@ before_script:
 - composer show --tree
 - drush pm:list
 
-- drush theme:uninstall -y pixture_reloaded
+# - drush theme:uninstall -y pixture_reloaded
 - drush pm:uninstall -y entity_browser
 - drush pm:uninstall -y redirect
 - drush pm:uninstall -y video_embed_html5
