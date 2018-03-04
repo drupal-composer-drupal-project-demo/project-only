@@ -52,6 +52,7 @@ matrix:
   - php: 7.2
     env:
     - DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env:
     - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql" DB_HOST="localhost"
   - php: 7.2
     env: LANGCODE="en" PROFILE="minimal" DRUPAL_VERSION="^8.5@alpha" DB_TYPE="sqlite"
@@ -252,6 +253,7 @@ before_script:
 - drush help config:get
 - drush config:get system.theme
 - drush config:set --yes system.theme default pixture_reloaded
+- drush config:get system.theme
 
 # - composer require drupal/media_entity_browser # Is it really needed?
 # - drush pm-enable --yes media_entity_browser
@@ -266,7 +268,11 @@ before_script:
 - composer show --tree
 - drush pm:list
 
-# - drush theme:uninstall -y pixture_reloaded
+- drush theme:uninstall -y pixture_reloaded || true
+- drush config:set --yes system.theme default stark
+- drush config:get system.theme
+- drush theme:uninstall -y pixture_reloaded
+
 - drush pm:uninstall -y entity_browser
 - drush pm:uninstall -y redirect
 - drush pm:uninstall -y video_embed_html5
