@@ -117,6 +117,10 @@ matrix:
 before_install:
 - pwd
 - echo $PATH
+# - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
+- psql --command="\l" -U postgres
+- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
+- psql --command="\l" -U postgres
 # - install --directory .travis/bin
 # - if [[ -f config/parameters.yml.travis ]]; then cp config/parameters.yml.travis config/parameters.yml; fi
 # - if [[ "7.0" < $TRAVIS_PHP_VERSION ]]; then
@@ -128,6 +132,24 @@ before_install:
 - go get -u github.com/jingweno/ccat
 
 install:
+- case $DB_TYPE in
+  "mysql")
+    echo MySQL;
+    ;;
+  "sqlite")
+    echo SQLite;
+    ;;
+  "pgsql")
+    echo PgSQL;
+    ;;
+  "")
+    echo Please choose a DB_TYPE;
+    ;;
+  *)
+    echo Unknown or unset DB_TYPE;
+    ;;
+  esac
+
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 - ls --color
 - cd $DRUPAL_PROJECT_DIR
@@ -135,6 +157,25 @@ install:
     composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
   fi
 - composer install
+- command -v drupal
+- command -v drush
+- drupal check
+- drupal site:install $PROFILE --yes --no-interaction --verbose
+  --langcode=$LANGCODE
+  --db-type=$DB_TYPE
+  --db-host=$DB_HOST
+  --db-port=$DB_PORT
+  --db-name=$USER
+  --db-user=$USER
+  --db-pass=""
+  --site-name="Project Only"
+  --site-mail="admin@example.com"
+  --account-name="admin"
+  --account-mail="admin@example.com"
+  --account-pass="admin"
+
+- drush core:status
+- drush core:requirements
 
 before_script:
 - composer show --latest
@@ -152,8 +193,6 @@ before_script:
 - ls --color
 # - ls --color web/profiles
 # - ls --color web/core/profiles
-- command -v drupal
-- command -v drush
 - drupal
 - drupal help init # Copy configuration files.
 - drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
@@ -164,27 +203,6 @@ before_script:
 - drupal help server
 - drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
 - drush help runserver
-- drupal check
-# - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
-- psql --command="\l" -U postgres
-- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
-- psql --command="\l" -U postgres
-- drupal site:install $PROFILE --yes --no-interaction --verbose
-  --langcode=$LANGCODE
-  --db-type=$DB_TYPE
-  --db-host=$DB_HOST
-  --db-port=$DB_PORT
-  --db-name=$USER
-  --db-user=$USER
-  --db-pass=""
-  --site-name="Project Only"
-  --site-mail="admin@example.com"
-  --account-name="admin"
-  --account-mail="admin@example.com"
-  --account-pass="admin"
-
-- drush core:status
-- drush core:requirements
 - drush
 - drush help pm:enable
 - drush help theme:enable
