@@ -195,8 +195,7 @@ before_script:
 - find . -name profiles
 # - cd web
 - ls --color
-- ls -lA --color web/sites/default/files
-- if ls -lA --color web/sites/default/files; then pushd web/sites/default/files; du -sch $(ls -lA); popd; fi; # /.ht.sqlite
+- if ls -lA --color web/sites/default/files; then pushd web/sites/default/files; du -sch $(ls -A); popd; fi; # /.ht.sqlite
 # - ls --color web/profiles
 # - ls --color web/core/profiles
 - drupal
