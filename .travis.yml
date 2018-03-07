@@ -29,90 +29,110 @@ services:
 
 env:
   global:
+  - LANGCODE="en" # temporary
+  - PROFILE="minimal" # temporary
   - DRUPAL_DEV_VERSION="^8.5@alpha"
   - DRUPAL_PROJECT_DIR="drupal-project"
   - PATH=~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH
   matrix:
-  - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql"
-  - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
-  - LANGCODE="en" PROFILE="minimal" DB_TYPE="pgsql"
-  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="mysql"
-  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="sqlite"
-  - LANGCODE="fr" PROFILE="minimal" DB_TYPE="pgsql"
-  - LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"
-  - LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite"
-  - LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"
-  - LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"
-  - LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite"
-  - LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"
+  - DB_TYPE="mysql"
+  - DB_TYPE="sqlite"
+  - DB_TYPE="pgsql"
+  # - LANGCODE="en" PROFILE="minimal" DB_TYPE="mysql"
+  # - LANGCODE="en" PROFILE="minimal" DB_TYPE="sqlite"
+  # - LANGCODE="en" PROFILE="minimal" DB_TYPE="pgsql"
+  # - LANGCODE="fr" PROFILE="minimal" DB_TYPE="mysql"
+  # - LANGCODE="fr" PROFILE="minimal" DB_TYPE="sqlite"
+  # - LANGCODE="fr" PROFILE="minimal" DB_TYPE="pgsql"
+  # - LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"
+  # - LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite"
+  # - LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"
+  # - LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"
+  # - LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite"
+  # - LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"
 
 matrix:
   fast_finish: true
   include:
   - php: 7.2
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 7.2
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 7.2
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 7.2
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 5.6
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 5.6
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 5.6
-    env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+    # env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - php: 5.6
+  #   env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   allow_failures:
   # - php: 7.0 # sensiolabs/security-checker 4.1.7
   - php: 7.3
   - php: nightly
-  - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="minimal"  DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="en" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  # - env: LANGCODE="fr" PROFILE="standard" DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
 
 before_install:
 - pwd
@@ -195,7 +215,7 @@ before_script:
 - find . -name profiles
 # - cd web
 - ls --color
-- if ls -lA --color web/sites/default/files; then pushd web/sites/default/files; du -sch $(ls -A); popd; fi; # /.ht.sqlite
+- if ls -A --color web/sites/default/files > /dev/null; then pushd web/sites/default/files; du -sch $(ls -A); popd; fi; # /.ht.sqlite
 # - ls --color web/profiles
 # - ls --color web/core/profiles
 - drupal
