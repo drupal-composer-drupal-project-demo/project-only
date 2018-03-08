@@ -93,7 +93,7 @@ test_script () {
       if ls web/sites/default/files/.ht.sqlite; then
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
         sqlite3 -cmd .tables web/sites/default/files/.ht.sqlite
-        cat << EOM | sqlite3 web/sites/default/files/.ht.sqlite
+        cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
           .tables
           
           PRAGMA writable_schema = 1;
