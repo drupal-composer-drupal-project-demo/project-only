@@ -15,7 +15,9 @@ case $DB_TYPE in
     if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
     ;;
   "")
-    echo Please choose a DB_TYPE;
+    echo Please choose a DB_TYPE in mysql sqlite pgsql;
+    echo eg. env DB_TYPE=sqlite ...
+    exit;
     ;;
   *)
     echo Unknown or unset DB_TYPE;
