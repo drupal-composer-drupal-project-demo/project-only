@@ -81,16 +81,19 @@ test_script () {
       export PROFILE=$profile
       export LANGCODE=$langcode
       echo $PROFILE $LANGCODE $DB_TYPE
+
+      time site_install0
+      drush core:status
+      drush core:requirements
+      drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
+      elinks http://localhost:8088/ -dump-color-mode 4 -dump
+
       drupal database:drop --no-interaction || true
       if ls web/sites/default/files/.ht.sqlite; then rm web/sites/default/files/.ht.sqlite; fi
       if ls web/sites/default/settings.php; then
         chmod u+w web/sites/default
         rm -f web/sites/default/settings.php
       fi
-
-      site_install0;
-      drush core:status
-      drush core:requirements
     done;
   done
 }
