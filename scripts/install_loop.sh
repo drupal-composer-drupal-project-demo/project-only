@@ -7,6 +7,7 @@ composer_install () {
     "mysql")
       echo MySQL;
       if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
+      echo DB_HOST=$DB_HOST
       ;;
     "sqlite")
       echo SQLite;
@@ -14,7 +15,9 @@ composer_install () {
     "pgsql")
       echo PgSQL;
       if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
+      echo DB_HOST=$DB_HOST
       if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
+      echo DB_PORT=$DB_PORT
       ;;
     "")
       echo Please choose a DB_TYPE in mysql sqlite pgsql;
