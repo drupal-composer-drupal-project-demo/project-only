@@ -90,7 +90,22 @@ test_script () {
       # - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
 
       drupal database:drop --no-interaction || true
-      if ls web/sites/default/files/.ht.sqlite; then rm web/sites/default/files/.ht.sqlite; fi
+      if ls web/sites/default/files/.ht.sqlite; then
+        # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
+        sqlite3 -cmd .tables web/sites/default/files/.ht.sqlite
+        cat << EOM | sqlite3 web/sites/default/files/.ht.sqlite
+          .tables
+          
+          PRAGMA writable_schema = 1;
+          delete from sqlite_master where type in ('table', 'index', 'trigger');
+          PRAGMA writable_schema = 0;
+
+          VACUUM;
+
+          PRAGMA INTEGRITY_CHECK;
+
+          EOM
+      fi
       if ls web/sites/default/settings.php; then
         chmod u+w web/sites/default
         rm -f web/sites/default/settings.php
