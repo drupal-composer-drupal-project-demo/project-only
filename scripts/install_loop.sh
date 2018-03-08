@@ -18,7 +18,7 @@ composer_install () {
       echo DB_HOST=$DB_HOST
       if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
       echo DB_PORT=$DB_PORT
-      psql --host=$DB_HOST --port=5432 --command="\l"
+      if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
       ;;
     "")
       echo Please choose a DB_TYPE in mysql sqlite pgsql;
@@ -73,7 +73,7 @@ site_install () {
 
 }
 
-site_install0 () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE; }
+site_install0 () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT; }
 
 test_script () {
   for profile in minimal standard; do
