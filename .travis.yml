@@ -154,63 +154,8 @@ before_install:
 - go get -u github.com/jingweno/ccat
 
 install:
-- case $DB_TYPE in
-  "mysql")
-    echo MySQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
-    ;;
-  "sqlite")
-    echo SQLite;
-    ;;
-  "pgsql")
-    echo PgSQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
-    if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
-    ;;
-  "")
-    echo Please choose a DB_TYPE;
-    ;;
-  *)
-    echo Unknown or unset DB_TYPE;
-    ;;
-  esac
-
-- composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
-- ls --color
-- cd $DRUPAL_PROJECT_DIR
-- export PATH=vendor/bin:$PATH
-- if [[ -v DRUPAL_VERSION ]]; then
-    composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
-  fi
-- composer install
-- command -v drupal
-- command -v drush
-- drupal check
-- site_install () {
-    drupal site:install $PROFILE --yes --no-interaction --verbose
-    --langcode=$LANGCODE
-    --db-type=$DB_TYPE
-    --db-host=$DB_HOST
-    --db-port=$DB_PORT
-    --db-name=$USER
-    --db-user=$USER
-    --db-pass=""
-    --site-name="Project Only"
-    --site-mail="admin@example.com"
-    --account-name="admin"
-    --account-mail="admin@example.com"
-    --account-pass="admin"
-    ;
-  }
-- for profile in minimal standard; do
-    for langcode in en fr; do
-      env PROFILE=$profile LANGCODE=$langcode site_install;
-    done;
-  done
-
-
-- drush core:status
-- drush core:requirements
+- source scripts/install_loop.sh
+- composer_install
 
 before_script:
 - composer show --latest
@@ -245,57 +190,57 @@ before_script:
 
 - drush pm:list
 
-- composer require drupal/admin_toolbar
-- drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
+# - composer require drupal/admin_toolbar
+# - drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
-- composer require drupal/token
-- drush pm:enable token
+# - composer require drupal/token
+# - drush pm:enable token
 
-- composer require drupal/pathauto
-- drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
+# - composer require drupal/pathauto
+# - drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
 
-- composer require drupal/metatag #?
-- drush pm:enable metatag
+# - composer require drupal/metatag #?
+# - drush pm:enable metatag
 
-- composer require drupal/entity_reference_revisions #?
-- drush pm:enable entity_reference_revisions
+# - composer require drupal/entity_reference_revisions #?
+# - drush pm:enable entity_reference_revisions
 
-- composer require drupal/paragraphs #?
-- drush pm:enable paragraphs
+# - composer require drupal/paragraphs #?
+# - drush pm:enable paragraphs
 
-- composer require drupal/field_group #?
-- drush pm:enable field_group
+# - composer require drupal/field_group #?
+# - drush pm:enable field_group
 
-- composer require drupal/devel #?
-- drush pm:enable devel
+# - composer require drupal/devel #?
+# - drush pm:enable devel
 
-- composer require drupal/webform
-- drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
+# - composer require drupal/webform
+# - drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
 
-- composer require drupal/video_embed_field
-- drush pm:enable -y video_embed_wysiwyg
+# - composer require drupal/video_embed_field
+# - drush pm:enable -y video_embed_wysiwyg
 # video_embed_field: The following module(s) will be enabled: video_embed_field, image
 
-- composer require drupal/video_embed_facebook
-- drush pm:enable -y video_embed_facebook
+# - composer require drupal/video_embed_facebook
+# - drush pm:enable -y video_embed_facebook
 
-- composer require drupal/video_embed_dailymotion
-- drush pm:enable -y video_embed_dailymotion
+# - composer require drupal/video_embed_dailymotion
+# - drush pm:enable -y video_embed_dailymotion
 
-- composer require drupal/video_embed_instagram
-- drush pm:enable -y video_embed_instagram
+# - composer require drupal/video_embed_instagram
+# - drush pm:enable -y video_embed_instagram
 
-- composer require drupal/video_embed_ted
-- drush pm:enable -y video_embed_ted
+# - composer require drupal/video_embed_ted
+# - drush pm:enable -y video_embed_ted
 
-- composer require drupal/video_embed_html5
-- drush pm:enable -y video_embed_html5
+# - composer require drupal/video_embed_html5
+# - drush pm:enable -y video_embed_html5
 
-- composer require drupal/redirect
-- drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
+# - composer require drupal/redirect
+# - drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
-- composer require drupal/entity_browser # Is it really needed?
-- drush pm:enable entity_browser
+# - composer require drupal/entity_browser # Is it really needed?
+# - drush pm:enable entity_browser
 
 # - composer require drupal/pixture_reloaded
 # - drush theme:enable -y pixture_reloaded
@@ -312,40 +257,42 @@ before_script:
 #  Installing drupal/media_entity (1.7.0): Downloading (100%)
 #  Installing drupal/media_entity_browser (1.0.0-beta3): Downloading (100%)
 
-- composer global show --latest
-- composer show --latest
-- composer show --tree
-- drush pm:list
+# - composer global show --latest
+# - composer show --latest
+# - composer show --tree
+# - drush pm:list
 
 # - drush theme:uninstall -y pixture_reloaded || true
 # - drush config:set --yes system.theme default stark
 # - drush config:get system.theme
 # - drush theme:uninstall -y pixture_reloaded
 
-- drush pm:uninstall -y entity_browser
-- drush pm:uninstall -y redirect
-- drush pm:uninstall -y video_embed_html5
-- drush pm:uninstall -y video_embed_ted
-- drush pm:uninstall -y video_embed_instagram
-- drush pm:uninstall -y video_embed_dailymotion
-- drush pm:uninstall -y video_embed_facebook
-- drush pm:uninstall -y video_embed_wysiwyg
-- drush pm:uninstall -y webform
-- drush pm:uninstall -y devel
-- drush pm:uninstall -y field_group
-- drush pm:uninstall -y paragraphs
-- drush pm:uninstall -y entity_reference_revisions
-- drush pm:uninstall -y metatag
-- drush pm:uninstall -y pathauto
-- drush pm:uninstall -y token
-- drush pm:uninstall -y admin_toolbar
+# - drush pm:uninstall -y entity_browser
+# - drush pm:uninstall -y redirect
+# - drush pm:uninstall -y video_embed_html5
+# - drush pm:uninstall -y video_embed_ted
+# - drush pm:uninstall -y video_embed_instagram
+# - drush pm:uninstall -y video_embed_dailymotion
+# - drush pm:uninstall -y video_embed_facebook
+# - drush pm:uninstall -y video_embed_wysiwyg
+# - drush pm:uninstall -y webform
+# - drush pm:uninstall -y devel
+# - drush pm:uninstall -y field_group
+# - drush pm:uninstall -y paragraphs
+# - drush pm:uninstall -y entity_reference_revisions
+# - drush pm:uninstall -y metatag
+# - drush pm:uninstall -y pathauto
+# - drush pm:uninstall -y token
+# - drush pm:uninstall -y admin_toolbar
 
-- drush pm:list
+# - drush pm:list
 
 # - drush pm-projectinfo # The pm-projectinfo command was deprecated. Please see `drush pm:list` and `composer show`
-- drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
+# - drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 
 script:
+- test_script
+- drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
 - elinks http://localhost:8088/ -dump-color-mode 4 -dump
 - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
 
