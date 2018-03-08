@@ -52,7 +52,6 @@ composer_install () {
   command -v drupal
   command -v drush
   drupal check
-  drupal database:connect
 }
 
 site_install () {
@@ -87,7 +86,6 @@ test_script () {
         chmod u+w web/sites/default
         rm -f web/sites/default/settings.php
       fi
-      drupal database:connect
 
       site_install0;
       drush core:status
