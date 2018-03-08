@@ -18,6 +18,7 @@ composer_install () {
       echo DB_HOST=$DB_HOST
       if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
       echo DB_PORT=$DB_PORT
+      psql --host=$DB_HOST --port=5432 --command="\l"
       ;;
     "")
       echo Please choose a DB_TYPE in mysql sqlite pgsql;
