@@ -185,10 +185,10 @@ before_script:
 - drush 2> /dev/null # drush/drush 8.1.15 does not fold and has lots of warnings (may be with too recent php version).
 - drush help runserver
 - drush
-- drush help pm:enable
-- drush help theme:enable
+# - drush help pm:enable
+# - drush help theme:enable
 
-- drush pm:list
+# - drush pm:list
 
 # - composer require drupal/admin_toolbar
 # - drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
