@@ -26,9 +26,9 @@ composer create-project --no-install --stability dev --no-interaction drupal-com
 
 cd $DRUPAL_PROJECT_DIR
 
-if [[ -v DRUPAL_VERSION ]]; then
-  composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
-fi
+# if [[ -v DRUPAL_VERSION ]]; then
+#   composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
+# fi
 
 composer install
 command -v drupal
