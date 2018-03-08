@@ -31,7 +31,8 @@ env:
   global:
   - LANGCODE="en" # temporary
   - PROFILE="minimal" # temporary
-  - DRUPAL_DEV_VERSION="^8.5@alpha"
+  - DRUPAL_DEV_VERSION="8.6.x-dev"
+  # - DRUPAL_DEV_VERSION="^8.5@alpha"
   - DRUPAL_PROJECT_DIR="drupal-project"
   - PATH=~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH
   matrix:
