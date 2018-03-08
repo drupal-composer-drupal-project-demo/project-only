@@ -32,10 +32,12 @@ composer_install () {
   composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 
   if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
-  ls /run/user
-  install --directory /run/user/1000/drupal-project # TODO tmpdir drwx
-  install --directory web/sites/default
-  pushd web/sites/default; ln -s /run/user/1000/drupal-project files; popd
+  ls /run
+  if ls /run/user; then
+    install --directory /run/user/1000/drupal-project # TODO tmpdir drwx
+    install --directory web/sites/default
+    pushd web/sites/default; ln -s /run/user/1000/drupal-project files; popd
+  fi
 
   export PATH=$(pwd)/vendor/bin:$PATH
 
