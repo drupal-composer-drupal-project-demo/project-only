@@ -178,6 +178,7 @@ install:
 - composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 - ls --color
 - cd $DRUPAL_PROJECT_DIR
+- export PATH=vendor/bin:$PATH
 - if [[ -v DRUPAL_VERSION ]]; then
     composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
   fi
