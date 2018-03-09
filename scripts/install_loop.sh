@@ -3,7 +3,8 @@
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 composer_install () {
-  composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
+  composer create-project --no-install --stability dev drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
+  # Why --stability dev
 
   if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
   if ls /dev/shm; then
