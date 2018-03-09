@@ -96,15 +96,15 @@ test_script () {
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
         echo Toto
         echo $(cat <<- EOM
-          Hello
+          Hello1
 EOM
         )
         echo "$(cat <<- EOM
-          Hello
+          Hello2
 EOM
         )"
         cat "$(cat <<- EOM
-          Hello
+          Hello3
 EOM
         )"
         sqlite3 web/sites/default/files/.ht.sqlite -cmd "$(cat <<- EOM
