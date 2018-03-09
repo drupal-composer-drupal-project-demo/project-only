@@ -8,11 +8,10 @@ composer_install () {
 
   if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
   if ls /dev/shm; then
-    df --print-type /dev/shm
     install --directory /dev/shm/drupal-project # TODO tmpdir drwx
     install --directory web/sites/default
     pushd web/sites/default; ln -s /dev/shm/drupal-project files; popd
-    df --print-type web/sites/default/files
+    df --print-type /dev/shm web/sites/default/files
   fi
 
   export PATH=$(pwd)/vendor/bin:$PATH
