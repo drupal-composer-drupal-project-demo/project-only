@@ -103,10 +103,6 @@ EOM
           Hello2
 EOM
         )"
-        cat "$(cat <<- EOM
-          Hello3
-EOM
-        )"
         sqlite3 web/sites/default/files/.ht.sqlite -cmd "$(cat <<- EOM
           .tables
           
