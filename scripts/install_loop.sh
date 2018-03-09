@@ -95,6 +95,7 @@ test_script () {
       if ls web/sites/default/files/.ht.sqlite; then
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
         sqlite3 -cmd .tables web/sites/default/files/.ht.sqlite
+        echo Toto
         echo $(cat <<- EOM
           Hello
 EOM
