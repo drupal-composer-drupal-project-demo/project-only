@@ -3,36 +3,6 @@
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 composer_install () {
-  case $DB_TYPE in
-    "mysql")
-      echo MySQL;
-      if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
-      echo DB_HOST=$DB_HOST
-      ;;
-    "sqlite")
-      echo SQLite;
-      ;;
-    "pgsql")
-      echo PgSQL;
-      if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
-      echo DB_HOST=$DB_HOST
-      if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
-      echo DB_PORT=$DB_PORT
-      if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
-      ;;
-    "")
-      echo Please choose a DB_TYPE in mysql sqlite pgsql;
-      echo eg.: 
-      echo env DB_TYPE=sqlite ...
-      exit;
-      ;;
-    *)
-      echo Unknown DB_TYPE;
-      echo $DB_TYPE
-      exit;
-      ;;
-  esac
-
   composer create-project --no-install --stability dev --no-interaction drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 
   if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
@@ -76,6 +46,36 @@ site_install () {
 site_install0 () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
 
 test_script () {
+  case $DB_TYPE in
+    "mysql")
+      echo MySQL;
+      if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
+      echo DB_HOST=$DB_HOST
+      ;;
+    "sqlite")
+      echo SQLite;
+      ;;
+    "pgsql")
+      echo PgSQL;
+      if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
+      echo DB_HOST=$DB_HOST
+      if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
+      echo DB_PORT=$DB_PORT
+      if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
+      ;;
+    "")
+      echo Please choose a DB_TYPE in mysql sqlite pgsql;
+      echo eg.: 
+      echo env DB_TYPE=sqlite ...
+      exit;
+      ;;
+    *)
+      echo Unknown DB_TYPE;
+      echo $DB_TYPE
+      exit;
+      ;;
+  esac
+
   for profile in minimal standard; do
     for langcode in en fr; do
       export PROFILE=$profile
