@@ -104,7 +104,7 @@ test_script () {
 
           PRAGMA INTEGRITY_CHECK;
 
-          EOM
+EOM
       fi
       if ls web/sites/default/settings.php; then
         chmod u+w web/sites/default
