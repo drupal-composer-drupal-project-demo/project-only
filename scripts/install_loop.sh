@@ -93,7 +93,7 @@ test_script () {
       if ls web/sites/default/files/.ht.sqlite; then
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
         sqlite3 -cmd .tables web/sites/default/files/.ht.sqlite
-        cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
+        sqlite3 web/sites/default/files/.ht.sqlite -cmd $(cat <<- EOM
           .tables
           
           PRAGMA writable_schema = 1;
@@ -103,8 +103,9 @@ test_script () {
           VACUUM;
 
           PRAGMA INTEGRITY_CHECK;
-
 EOM
+        )
+        # cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
       fi
       if ls web/sites/default/settings.php; then
         chmod u+w web/sites/default
