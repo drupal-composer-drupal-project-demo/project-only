@@ -59,6 +59,7 @@ for profile in minimal standard; do
         VACUUM;
         PRAGMA INTEGRITY_CHECK;
 EOM
+    # https://stackoverflow.com/questions/525512/drop-all-tables-command
     fi
     if ls web/sites/default/settings.php; then
       chmod u+w web/sites/default
