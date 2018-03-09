@@ -94,18 +94,7 @@ test_script () {
       drupal database:drop --no-interaction || true
       if ls web/sites/default/files/.ht.sqlite; then
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
-        echo Toto
-        echo $(cat <<- EOM
-          Hello1
-EOM
-        )
-        echo "$(cat <<- EOM
-          Hello2
-EOM
-        )"
-        sqlite3 web/sites/default/files/.ht.sqlite -cmd "$(cat <<- EOM
-          .tables
-          
+        cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
           PRAGMA writable_schema = 1;
           delete from sqlite_master where type in ('table', 'index', 'trigger');
           PRAGMA writable_schema = 0;
@@ -113,11 +102,7 @@ EOM
           VACUUM;
 
           PRAGMA INTEGRITY_CHECK;
-          
-          .quit
 EOM
-        )"
-        # cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
       fi
       if ls web/sites/default/settings.php; then
         chmod u+w web/sites/default
