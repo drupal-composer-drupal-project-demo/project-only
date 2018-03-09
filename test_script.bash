@@ -49,8 +49,9 @@ for profile in minimal standard; do
 
     drupal database:drop --no-interaction || true
     if ls web/sites/default/files/.ht.sqlite; then
+      readlink --canonicalize web/sites/default/files/.ht.sqlite
       df --print-type web/sites/default/files/.ht.sqlite
-      pushd web/sites/default/files; du -sch $(ls -A); popd # .ht.sqlite size
+      pushd web/sites/default/files; du -sch .ht.sqlite; popd
       # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
       cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
         PRAGMA writable_schema = 1;
@@ -59,7 +60,7 @@ for profile in minimal standard; do
         VACUUM;
         PRAGMA INTEGRITY_CHECK;
 EOM
-    # https://stackoverflow.com/questions/525512/drop-all-tables-command
+      # https://stackoverflow.com/questions/525512/drop-all-tables-command
     fi
     if ls web/sites/default/settings.php; then
       chmod u+w web/sites/default
