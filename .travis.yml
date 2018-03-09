@@ -138,6 +138,7 @@ matrix:
 before_install:
 - pwd
 - echo $PATH
+- echo $XDG_RUNTIME_DIR
 - df
 # - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
 - psql --command="\l" -U postgres
