@@ -3,7 +3,6 @@
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 composer_install () {
-  set -ev
   case $DB_TYPE in
     "mysql")
       echo MySQL;
@@ -74,10 +73,9 @@ site_install () {
 
 }
 
-site_install0 () { set -ev; drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
+site_install0 () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
 
 test_script () {
-  set -ev
   for profile in minimal standard; do
     for langcode in en fr; do
       export PROFILE=$profile
