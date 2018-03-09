@@ -8,9 +8,11 @@ composer_install () {
 
   if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
   if ls /dev/shm; then
+    df --print-type /dev/shm
     install --directory /dev/shm/drupal-project # TODO tmpdir drwx
     install --directory web/sites/default
     pushd web/sites/default; ln -s /dev/shm/drupal-project files; popd
+    df --print-type web/sites/default/files
   fi
 
   export PATH=$(pwd)/vendor/bin:$PATH
@@ -91,6 +93,7 @@ test_script () {
 
       drupal database:drop --no-interaction || true
       if ls web/sites/default/files/.ht.sqlite; then
+        df --print-type web/sites/default/files/.ht.sqlite
         # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
         cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
           PRAGMA writable_schema = 1;
