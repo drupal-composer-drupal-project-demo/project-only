@@ -112,7 +112,7 @@ time site_install
 drush core:status
 drush core:requirements
 
-if server_bypass; then
+if $server_bypass; then
   echo Exit bypassing demo webserver
   exitfn
 fi
