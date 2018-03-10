@@ -2,7 +2,7 @@
 # [[ ]] requires bash
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
-composer create-project --no-install --stability dev drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
+time composer create-project --no-install --stability dev drupal-composer/drupal-project $DRUPAL_PROJECT_DIR $SKELETON_VERSION
 # Why --stability dev
 
 if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
@@ -16,10 +16,10 @@ fi
 export PATH=$(pwd)/vendor/bin:$PATH
 
 if [[ -v DRUPAL_VERSION ]]; then
-  composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
+  time composer -vv require --no-update drupal/core:$DRUPAL_VERSION;
 fi
 
-composer install
+time composer install
 command -v drupal
 command -v drush
 drupal check
