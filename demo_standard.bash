@@ -12,9 +12,15 @@ if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-pro
 site_install () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
 
 exitfn () {
-  trap SIGINT              # Restore signal handling for SIGINT
+  trap SIGINT # Restore signal handling for SIGINT
+  sleep 1 # To allow to interrupt cleanup
   drupal database:drop --no-interaction || true
+  if ls web/sites/default/settings.php; then
+    chmod u+w web/sites/default
+    rm -f web/sites/default/settings.php
+  fi
   if ls web/sites/default/files/.ht.sqlite; then
+    readlink --canonicalize web/sites/default/files/.ht.sqlite
     df --print-type web/sites/default/files/.ht.sqlite
     pushd web/sites/default/files; du -sch .ht.sqlite; popd
     # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
@@ -29,10 +35,6 @@ EOM
     $db_target=$(readlink --canonicalize web/sites/default/files/.ht.sqlite)
     rm $db_target
     rmdir $(dirname $db_target)
-  fi
-  if ls web/sites/default/settings.php; then
-    chmod u+w web/sites/default
-    rm -f web/sites/default/settings.php
   fi
   exit
 }
