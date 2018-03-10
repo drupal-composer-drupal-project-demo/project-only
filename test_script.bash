@@ -48,7 +48,7 @@ for site_install in drush_site_install console_site_install; do
     for langcode in en fr; do
       export PROFILE=$profile
       export LANGCODE=$langcode
-      echo $PROFILE $LANGCODE $DB_TYPE
+      echo $PROFILE $LANGCODE $DB_TYPE ($site_install) $DB_URL
 
       time $site_install
       drush core:status
