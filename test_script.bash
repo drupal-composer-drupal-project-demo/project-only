@@ -8,6 +8,8 @@ drush_site_install () { drush site:install $PROFILE -y --verbose --locale=$LANGC
 # mysql://root:pass@localhost:port/dbname
 # sqlite://sites/example.com/files/.ht.sqlite
 
+site_install_commands=(console_site_install)
+
 case $DB_TYPE in
   "mysql")
     echo MySQL;
@@ -20,6 +22,7 @@ case $DB_TYPE in
     echo SQLite;
     if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://web/sites/default/files/.ht.sqlite; fi
     echo DB_URL=$DB_URL
+    site_install_commands=(console_site_install drush_site_install)
     ;;
   "pgsql")
     echo PgSQL;
@@ -43,7 +46,9 @@ case $DB_TYPE in
     exit;
     ;;
 esac
-for site_install in drush_site_install console_site_install; do
+
+for site_install in ${site_install_commands[*]}; do
+# drush_site_install does not work with drush 9 on mysql and pgsql, sqlite woks fine.
   for profile in minimal standard; do
     for langcode in en fr; do
       export PROFILE=$profile
