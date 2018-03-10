@@ -45,7 +45,7 @@ site_install () { drupal site:install $PROFILE --yes --no-interaction --verbose 
 
 exitfn () {
   trap SIGINT # Restore signal handling for SIGINT
-  sleep 1 # To allow to interrupt cleanup
+  sleep .5 # To allow to interrupt cleanup
   drupal database:drop --no-interaction || true
   if ls web/sites/default/settings.php; then
     chmod u+w web/sites/default
@@ -56,7 +56,7 @@ exitfn () {
     df --print-type web/sites/default/files/.ht.sqlite
     pushd web/sites/default/files; du -sch .ht.sqlite; popd
     # rm web/sites/default/files/.ht.sqlite; # Does not work because used by server
-    cat <<- EOM | sqlite3 web/sites/default/files/.ht.sqlite
+    cat <<- EOM | sqlite3 -echo web/sites/default/files/.ht.sqlite
       PRAGMA writable_schema = 1;
       delete from sqlite_master where type in ('table', 'index', 'trigger');
       PRAGMA writable_schema = 0;
@@ -64,9 +64,8 @@ exitfn () {
       PRAGMA INTEGRITY_CHECK;
 EOM
     # https://stackoverflow.com/questions/525512/drop-all-tables-command
-    $db_target=$(readlink --canonicalize web/sites/default/files/.ht.sqlite)
-    rm $db_target
-    rmdir $(dirname $db_target)
+    if false; then db_target=$(readlink --canonicalize web/sites/default/files/.ht.sqlite); fi
+    rm -rf $(dirname $(readlink --canonicalize web/sites/default/files/.ht.sqlite))
   fi
   exit
 }
@@ -112,7 +111,7 @@ time site_install
 drush core:status
 drush core:requirements
 
-if [ 0 -ne $server_bypass]; then
+if [[ 0 -ne $server_bypass ]]; then
   echo Exit bypassing demo webserver
   exitfn
 fi
