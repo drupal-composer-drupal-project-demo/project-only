@@ -9,6 +9,7 @@ export COMPOSER_NO_INTERACTION=1
 # Initialize all the option variables.
 # This ensures we are not contaminated by variables from the environment.
 # http://mywiki.wooledge.org/BashFAQ/035
+# https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
 server_bypass=0
 verbose=0
 
