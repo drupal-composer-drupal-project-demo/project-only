@@ -4,6 +4,7 @@ set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 export PROFILE=standard
 # export LANGCODE=... could be extracted from $LANG
+export COMPOSER_NO_INTERACTION=1
 
 bash composer_create_drupal-project.bash
 if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
