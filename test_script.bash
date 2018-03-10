@@ -2,24 +2,34 @@
 # [[ ]] requires bash
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
-site_install () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
+console_site_install () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
+drush_site_install () { drush site:install $PROFILE -y --verbose --locale=$LANGCODE --db-url=$DB_URL; }
+# https://drushcommands.com/drush-9x/site/site:install/
+# mysql://root:pass@localhost:port/dbname
+# sqlite://sites/example.com/files/.ht.sqlite
 
 case $DB_TYPE in
   "mysql")
     echo MySQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
+    if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi
     echo DB_HOST=$DB_HOST
+    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER@$DB_HOST:$DB_PORT; fi
+    echo DB_URL=$DB_URL
     ;;
   "sqlite")
     echo SQLite;
+    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://; fi
+    echo DB_URL=$DB_URL
     ;;
   "pgsql")
     echo PgSQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
+    if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi
     echo DB_HOST=$DB_HOST
     if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
     echo DB_PORT=$DB_PORT
     if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
+    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER@$DB_HOST:$DB_PORT; fi
+    echo DB_URL=$DB_URL
     ;;
   "")
     echo Please choose a DB_TYPE in mysql sqlite pgsql;
@@ -40,7 +50,7 @@ for profile in minimal standard; do
     export LANGCODE=$langcode
     echo $PROFILE $LANGCODE $DB_TYPE
 
-    time site_install
+    time console_site_install
     drush core:status
     drush core:requirements
     drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
