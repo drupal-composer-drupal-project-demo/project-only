@@ -35,4 +35,23 @@ drupal-composer/drupal-project demo
 * drupal/pixture_reloaded
 
 ## Tested with the following versions of Drupal
-* 8.4.5 and 8.5.0-rc1
+* 8.4.5
+* 8.5.0-rc1
+* 8.5.0
+
+## drupal site:install parameters
+```sh
+drupal site:install $PROFILE --yes --no-interaction --verbose \
+--langcode=$LANGCODE \
+--db-type=$DB_TYPE \
+--db-host=$DB_HOST \
+--db-port=$DB_PORT \
+--db-name=$USER \
+--db-user=$USER \
+--db-pass="" \
+--site-name="Project Only" \
+--site-mail="admin@example.com" \
+--account-name="admin" \
+--account-mail="admin@example.com" \
+--account-pass="admin" \
+```
