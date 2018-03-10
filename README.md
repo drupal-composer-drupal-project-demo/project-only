@@ -39,6 +39,12 @@ drupal-composer/drupal-project demo
 * 8.5.0-rc1
 * 8.5.0
 
+## TODO
+* Similar environment variable management in two files (put the code in just one file...
+):
+  - test_script.bash
+  - demo_standard.bash
+
 ## drupal site:install parameters
 ```sh
 drupal site:install $PROFILE --yes --no-interaction --verbose \
