@@ -36,9 +36,9 @@ env:
   - DRUPAL_PROJECT_DIR="drupal-project"
   - PATH=~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH
   matrix:
-  - DB_TYPE="mysql"
   - DB_TYPE="sqlite"
   - DB_TYPE="pgsql"
+  - DB_TYPE="mysql"
 
 matrix:
   fast_finish: true
