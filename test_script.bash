@@ -15,9 +15,9 @@ case $DB_TYPE in
     echo MySQL;
     if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi
     echo DB_HOST=$DB_HOST
-    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT; fi
+    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
     echo DB_URL=$DB_URL
-    site_install_commands=(console_site_install drush_site_install)
+    site_install_commands=(drush_site_install console_site_install)
     ;;
   "sqlite")
     echo SQLite;
@@ -32,9 +32,9 @@ case $DB_TYPE in
     if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
     echo DB_PORT=$DB_PORT
     if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
-    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT; fi
+    if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
     echo DB_URL=$DB_URL
-    site_install_commands=(console_site_install drush_site_install)
+    site_install_commands=(drush_site_install console_site_install)
     ;;
   "")
     echo Please choose a DB_TYPE in mysql sqlite pgsql;
