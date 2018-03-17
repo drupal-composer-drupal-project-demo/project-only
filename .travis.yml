@@ -2,7 +2,8 @@
 language: php
 
 addons:
-  postgresql: "9.6"
+  mariadb: '10.0' # Do not know about other versions...
+  postgresql: "10.0" # "9.6" # Most recent with trusty is 9.6
   apt:
     packages:
     - elinks # For dysplaying php files on console.
@@ -19,10 +20,6 @@ php:
 # - 7.0 # Debian 9
 - 5.6 # Minimum for Drush 9, Debian 8
 # - 5.5 # Minimum for Drupal 8
-
-# addons:
-  # mariadb: # '10.0' # Do not know about other versions...
-  # postgresql: # "9.6" # Most recent with trusty is 9.6
 
 services:
 - mysql
@@ -52,12 +49,15 @@ matrix:
     env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 5.6
     env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    addons: # default mysql
+      apt:
+        packages:
+        - elinks
   - php: 5.6
     env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - php: 5.6
     env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-    addons:
-      postgresql: "9.2"
+    addons: # default postgresql
       apt:
         packages:
         - elinks
