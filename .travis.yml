@@ -71,7 +71,10 @@ before_install:
 - df
 # - mysql -e "CREATE DATABASE IF NOT EXISTS $USER;"
 - psql --command="\l" -U postgres
-- psql --command="create database $USER;" -U postgres # --encoding=UTF8 --owner=$USER
+- if !psql -lqt | cut -d \| -f 1 | grep -qw $USER; then
+  # https://stackoverflow.com/questions/14549270/check-if-database-exists-in-postgresql-using-shell
+    psql --command="create database $USER;" -U postgres; # --encoding=UTF8 --owner=$USER
+  fi
 - psql --command="\l" -U postgres
 - composer global require --dev sensiolabs/security-checker
 
