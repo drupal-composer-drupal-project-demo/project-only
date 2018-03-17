@@ -2,6 +2,7 @@
 language: php
 
 addons:
+  postgresql: "9.6"
   apt:
     packages:
     - elinks # For dysplaying php files on console.
@@ -44,23 +45,22 @@ matrix:
   fast_finish: true
   include:
   - php: 7.2
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.2
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.2
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 5.6
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 5.6
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 5.6
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
     addons:
-      postgresql: "9.6"
+      postgresql: "9.2"
       apt:
         packages:
         - elinks
-  - php: 7.2
-    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   allow_failures:
   - php: 7.3
   - php: nightly
