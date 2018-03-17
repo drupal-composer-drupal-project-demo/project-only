@@ -2,8 +2,6 @@
 language: php
 
 addons:
-  mariadb: '10.0' # Do not know about other versions...
-  postgresql: "9.6" # Most recent with trusty is 9.6
   apt:
     packages:
     - elinks # For dysplaying php files on console.
@@ -35,8 +33,18 @@ env:
   - PATH=~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH
   matrix:
   - DB_TYPE="mysql"
+    addons:
+    mariadb: '10.0' # Do not know about other versions...
+    apt:
+      packages:
+      - elinks
   - DB_TYPE="sqlite"
   - DB_TYPE="pgsql"
+    addons:
+      postgresql: "9.6" # Most recent with trusty is 9.6
+      apt:
+        packages:
+        - elinks
 
 matrix:
   fast_finish: true
