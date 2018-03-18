@@ -2,6 +2,8 @@
 # [[ ]] requires bash
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
+source lib.bash
+
 export PROFILE=standard
 # export LANGCODE=... could be extracted from $LANG
 export COMPOSER_NO_INTERACTION=1
@@ -42,8 +44,6 @@ done
 bash composer_create_drupal-project.bash
 if [[ -v $DRUPAL_PROJECT_DIR ]]; then cd $DRUPAL_PROJECT_DIR; else cd drupal-project; fi;
 
-site_install () { drupal site:install $PROFILE --yes --no-interaction --verbose --langcode=$LANGCODE --db-type=$DB_TYPE --db-host=$DB_HOST --db-port=$DB_PORT --db-user=$USER; }
-
 exitfn () {
   trap SIGINT # Restore signal handling for SIGINT
   sleep .5 # To allow to interrupt cleanup
@@ -71,44 +71,13 @@ EOM
   exit
 }
 
-case $DB_TYPE in
-  "mysql")
-    echo MySQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="localhost"; fi;
-    echo DB_HOST=$DB_HOST
-    ;;
-  "sqlite")
-    echo SQLite;
-    ;;
-  "pgsql")
-    echo PgSQL;
-    if [[ ! -v DB_HOST ]]; then export DB_HOST="/var/run/postgresql"; fi;
-    echo DB_HOST=$DB_HOST
-    if [[ ! -v DB_PORT ]]; then export DB_PORT=5432; fi;
-    echo DB_PORT=$DB_PORT
-    if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
-    ;;
-  "")
-    echo
-    echo Selecting SQLite database by default, otherwise set DB_TYPE to mysql or pgsql;
-    echo eg.: 
-    echo env DB_TYPE=mysql ...
-    echo
-    export DB_TYPE="sqlite"
-    ;;
-  *)
-    echo Unknown DB_TYPE;
-    echo $DB_TYPE
-    exit;
-    ;;
-esac
-
+manage_db_parameters
 
 export PROFILE=$profile
 export LANGCODE=$langcode
 echo $PROFILE $LANGCODE $DB_TYPE
 
-time site_install
+time console_site_install
 drush core:status
 drush core:requirements
 
