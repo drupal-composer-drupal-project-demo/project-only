@@ -2,7 +2,7 @@
 # [[ ]] requires bash
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
-. ./lib.bash
+. lib.bash
 
 manage_db_parameters
 
