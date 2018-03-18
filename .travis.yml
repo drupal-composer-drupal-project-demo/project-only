@@ -32,7 +32,7 @@ env:
   - DRUPAL_DEV_VERSION="8.6.x-dev"
   # - DRUPAL_DEV_VERSION="^8.5@alpha"
   - DRUPAL_PROJECT_DIR="drupal-project"
-  - PATH=$(pwd):~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH # $(pwd) for bash source commands and files.
+  - PATH=$TRAVIS_BUILD_DIR:~/.composer/vendor/bin:$(pwd)/$DRUPAL_PROJECT_DIR/vendor/bin:$PATH # $(pwd) for bash source commands and files.
   matrix:
   - DB_TYPE="mysql"
   - DB_TYPE="sqlite"
