@@ -6,6 +6,7 @@ drush_site_install () { drush site:install $PROFILE -y --verbose --locale=$LANGC
 
 manage_db_parameters () {
 site_install_commands=(console_site_install)
+if [[ ! -v DB_TYPE ]]; then export DB_TYPE=$1; fi
 case $DB_TYPE in
   "mysql")
     echo MySQL;
@@ -33,7 +34,9 @@ case $DB_TYPE in
     ;;
   "")
     echo Please choose a DB_TYPE in mysql sqlite pgsql;
-    echo eg.: 
+    echo eg.:
+    echo <command> sqlite
+    echo or
     echo env DB_TYPE=sqlite ...
     exit;
     ;;
