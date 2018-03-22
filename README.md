@@ -40,10 +40,9 @@ drupal-composer/drupal-project demo
 * 8.5.0
 
 ## TODO
-* Similar environment variable management in two files (put the code in just one file...
-):
-  - test_script.bash
-  - demo_standard.bash
+* Testing
+  * https://www.drupal.org/docs/8/testing/types-of-tests-in-drupal-8
+  * https://www.drupal.org/docs/8/phpunit/running-phpunit-tests
 
 ## drupal site:install parameters
 ```sh
