@@ -17,14 +17,12 @@ for site_install in ${site_install_commands[*]}; do
       time $site_install
       drush core:status
       drush core:requirements
+      composer show drupal/core
       pwd
       ls --color
-      pushd vendor ; pwd ; popd
-      ls --color vendor
-      pushd vendor/drupal ; pwd ; popd
-      ls --color vendor/drupal
-      pushd .. ; pwd ; popd
-      ls --color ..
+      pushd vendor ; ls --color ; popd ; echo
+      pushd vendor/drupal ; ls --color ; popd ; echo
+      pushd .. ; ls --color ; popd ; echo
       find . -name core
       phpdbg -qrr vendor/bin/phpunit --configuration vendor/drupal/core --testsuite unit
       drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
