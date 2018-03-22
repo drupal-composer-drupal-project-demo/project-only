@@ -17,6 +17,7 @@ for site_install in ${site_install_commands[*]}; do
       time $site_install
       drush core:status
       drush core:requirements
+      phpdbg vendor/bin/phpunit -c core --testsuite unit
       drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
       elinks http://localhost:8088/ -dump-color-mode 4 -dump
       # - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
