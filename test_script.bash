@@ -19,8 +19,11 @@ for site_install in ${site_install_commands[*]}; do
       drush core:requirements
       pwd
       ls --color
+      pushd vendor ; pwd ; popd
       ls --color vendor
+      pushd vendor/drupal ; pwd ; popd
       ls --color vendor/drupal
+      pushd .. ; pwd ; popd
       ls --color ..
       find . -name core
       phpdbg -qrr vendor/bin/phpunit --configuration vendor/drupal/core --testsuite unit
