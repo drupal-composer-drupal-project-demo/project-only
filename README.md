@@ -43,6 +43,7 @@ drupal-composer/drupal-project demo
 * Testing
   * https://www.drupal.org/docs/8/testing/types-of-tests-in-drupal-8
   * https://www.drupal.org/docs/8/phpunit/running-phpunit-tests
+  * https://github.com/drupal-composer/drupal-project/issues/193
 
 ## drupal site:install parameters
 ```sh
