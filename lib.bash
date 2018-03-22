@@ -14,12 +14,16 @@ case $DB_TYPE in
     echo DB_HOST=$DB_HOST
     if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
     echo DB_URL=$DB_URL
+    if [[ ! -v SIMPLETEST_DB ]]; then export SIMPLETEST_DB=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
+    echo SIMPLETEST_DB=$SIMPLETEST_DB
     site_install_commands=(console_site_install drush_site_install)
     ;;
   "sqlite")
     echo SQLite;
     if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://web/sites/default/files/.ht.sqlite; fi
     echo DB_URL=$DB_URL
+    if [[ ! -v SIMPLETEST_DB ]]; then export SIMPLETEST_DB=$DB_TYPE://web/sites/default/files/.ht.sqlite; fi
+    echo SIMPLETEST_DB=$SIMPLETEST_DB
     site_install_commands=(console_site_install drush_site_install)
     ;;
   "pgsql")
@@ -31,6 +35,8 @@ case $DB_TYPE in
     if command -v psql ; then psql --host=$DB_HOST --port=$DB_PORT --command="\l"; fi
     if [[ ! -v DB_URL ]]; then export DB_URL=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
     echo DB_URL=$DB_URL
+    if [[ ! -v SIMPLETEST_DB ]]; then export SIMPLETEST_DB=$DB_TYPE://$USER:""@$DB_HOST:$DB_PORT/$USER; fi
+    echo SIMPLETEST_DB=$SIMPLETEST_DB
     ;;
   "")
     echo Please choose a DB_TYPE in mysql sqlite pgsql;
