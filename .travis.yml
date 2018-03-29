@@ -114,7 +114,7 @@ after_script:
 - $GOPATH/bin/ccat composer.json
 # - ls --color web/profiles
 # - ls --color web/core/profiles
-- drupal
+- drupal ######################################################[ERROR] DrupalConsole must be executed within a Drupal Site. 
 - drupal help init # Copy configuration files.
 - drupal help chain --file=~/.console/chain/quick-start.yml # Used to eg. download, install and serve.
 - drupal help quick:start # Maybe shortcut for chain --file=~/.console/chain/quick-start.yml
