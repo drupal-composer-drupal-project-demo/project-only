@@ -41,7 +41,7 @@ case $DB_TYPE in
   "")
     echo Please choose a DB_TYPE in mysql sqlite pgsql;
     echo eg.:
-    echo <command> sqlite
+    echo "<command>" sqlite
     echo or
     echo env DB_TYPE=sqlite ...
     exit;
