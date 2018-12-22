@@ -97,13 +97,16 @@ before_script:
 - if ls -A --color web/sites/default/files > /dev/null; then pushd web/sites/default/files; du -sch $(ls -A); popd; fi; # .ht.sqlite
 
 script:
-- sh ../enable-modules.sh
+- composer list
+- composer exec --list
+- ls vendor/bin
+- env PATH=$PWD/vendor/bin:$PATH sh ../enable-modules.sh
 - env PATH=..:$PATH bash ../test_script.bash || true
 - security-checker security:check --end-point=http://security.sensiolabs.org/check_lock
 - cd ..
 - if [[ -v $DRUPAL_PROJECT_DIR ]]; then rm -rf $DRUPAL_PROJECT_DIR; else rm -rf drupal-project; fi;
 - bash demo_standard.bash --server-bypass
-- sh ../enable-modules.sh
+- env PATH=$PWD/vendor/bin:$PATH sh ../enable-modules.sh
 
 - security-checker security:check --end-point=http://security.sensiolabs.org/check_lock ~/.composer/composer.lock
 # - 'curl -H "Accept: text/plain" https://security.sensiolabs.org/check_lock -F lock=@${USER}/.composer/composer.lock'
