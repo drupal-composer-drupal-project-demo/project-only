@@ -76,10 +76,10 @@ drush config:get system.theme
 # composer show --tree
 # drush pm:list
 
-drush theme:uninstall -y pixture_reloaded || true
-drush config:set --yes system.theme default stark
-drush config:get system.theme
-drush theme:uninstall -y pixture_reloaded
+# drush theme:uninstall -y pixture_reloaded || true
+# drush config:set --yes system.theme default stark
+# drush config:get system.theme
+# drush theme:uninstall -y pixture_reloaded # Unable to uninstall themes.
 
 drush pm:uninstall -y entity_browser
 drush pm:uninstall -y redirect
