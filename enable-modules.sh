@@ -3,7 +3,7 @@ set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 command -v drush
 which -a drush
-drush help pm:enable
+drush
 
 composer require drupal/admin_toolbar
 drush pm:enable --debug --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
