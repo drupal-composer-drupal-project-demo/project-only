@@ -3,7 +3,6 @@ set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 command -v drush
 which -a drush
-drush
 
 composer require drupal/admin_toolbar
 drush pm:enable --debug --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
@@ -73,9 +72,9 @@ drush config:get system.theme
 #  Installing drupal/media_entity_browser (1.0.0-beta3): Downloading (100%)
 
 # composer global show --latest
-composer show --latest
-composer show --tree
-drush pm:list
+# composer show --latest
+# composer show --tree
+# drush pm:list
 
 drush theme:uninstall -y pixture_reloaded || true
 drush config:set --yes system.theme default stark
