@@ -1,8 +1,12 @@
 #!/bin/sh
 set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
+command -v drush
+which -a drush
+drush help pm:enable
+
 composer require drupal/admin_toolbar
-drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
+drush pm:enable --debug --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
 composer require drupal/token
 drush pm:enable token
