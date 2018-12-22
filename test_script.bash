@@ -6,7 +6,7 @@ set -ev # https://docs.travis-ci.com/user/customizing-the-build/
 
 manage_db_parameters
 
-./vendor/bin/phpunit --configuration web/core --testsuite unit # should be made once before install
+./vendor/bin/phpunit --configuration web/core --testsuite unit || true # should be made once before install
 for site_install in ${site_install_commands[*]}; do
 # drush_site_install does not work with drush 9 on mysql and pgsql, sqlite woks fine.
   for profile in minimal standard; do
@@ -18,10 +18,10 @@ for site_install in ${site_install_commands[*]}; do
       time $site_install
       drush core:status
       drush core:requirements
-      ./vendor/bin/phpunit --version || true
+      ./vendor/bin/phpunit --version
       # phpdbg -qrr vendor/bin/phpunit --configuration web/core --testsuite unit --coverage-text
       # Testing with coverage is much slower and should be done separatedly!
-      ./vendor/bin/phpunit --configuration web/core --testsuite unit # should be made once before install
+      ./vendor/bin/phpunit --configuration web/core --testsuite unit || true # should be made once before install
       drupal server --yes --no-interaction --learning & printf 'HEAD / HTTP/1.1\r\n\r\n' | socat - TCP4:localhost:8088,forever # Waiting for server to connect.
       elinks http://localhost:8088/ -dump-color-mode 4 -dump
       # - elinks http://localhost:8088/core/install.php?langcode=en -dump-color-mode 4 -dump
