@@ -5,7 +5,7 @@ command -v drush
 which -a drush
 
 composer require drupal/admin_toolbar
-drush pm:enable --debug --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
+drush pm:enable --yes admin_toolbar # The following module(s) will be enabled: admin_toolbar, toolbar, breakpoint
 
 composer require drupal/token
 drush pm:enable token
@@ -13,48 +13,60 @@ drush pm:enable token
 composer require drupal/pathauto
 drush pm:enable --yes pathauto # The following module(s) will be enabled: pathauto, ctools, path
 
-composer require drupal/metatag #?
-drush pm:enable metatag
+# composer require drupal/metatag #?
+# drush pm:enable metatag
+# speedup
 
-composer require drupal/entity_reference_revisions #?
-drush pm:enable entity_reference_revisions
+# composer require drupal/entity_reference_revisions #?
+# drush pm:enable entity_reference_revisions
+# speedup
 
-composer require drupal/paragraphs #?
-drush pm:enable paragraphs
+# composer require drupal/paragraphs #?
+# drush pm:enable paragraphs
+# speedup
 
-composer require drupal/field_group #?
-drush pm:enable field_group
+# composer require drupal/field_group #?
+# drush pm:enable field_group
+# speedup
 
-composer require drupal/devel #?
-drush pm:enable devel
+# composer require drupal/devel #?
+# drush pm:enable devel
+# speedup
 
 composer require drupal/webform
 drush pm:enable --yes webform # The following module(s) will be enabled: webform, contribute
 
-composer require drupal/video_embed_field
-drush pm:enable -y video_embed_wysiwyg
+# composer require drupal/video_embed_field
+# drush pm:enable -y video_embed_wysiwyg
 # video_embed_field: The following module(s) will be enabled: video_embed_field, image
+# speedup
 
-composer require drupal/video_embed_facebook
-drush pm:enable -y video_embed_facebook
+# composer require drupal/video_embed_facebook
+# drush pm:enable -y video_embed_facebook
+# speedup
 
-composer require drupal/video_embed_dailymotion
-drush pm:enable -y video_embed_dailymotion
+# composer require drupal/video_embed_dailymotion
+# drush pm:enable -y video_embed_dailymotion
+# speedup
 
-composer require drupal/video_embed_instagram
-drush pm:enable -y video_embed_instagram
+# composer require drupal/video_embed_instagram
+# drush pm:enable -y video_embed_instagram
+# speedup
 
-composer require drupal/video_embed_ted
-drush pm:enable -y video_embed_ted
+# composer require drupal/video_embed_ted
+# drush pm:enable -y video_embed_ted
+# speedup
 
-composer require drupal/video_embed_html5
-drush pm:enable -y video_embed_html5
+# composer require drupal/video_embed_html5
+# drush pm:enable -y video_embed_html5
+# speedup
 
 composer require drupal/redirect
 drush pm:enable --yes redirect # The following module(s) will be enabled: redirect, link, views
 
-composer require drupal/entity_browser # Is it really needed?
-drush pm:enable entity_browser
+# composer require drupal/entity_browser # Is it really needed?
+# drush pm:enable entity_browser
+# speedup
 
 composer require drupal/pixture_reloaded
 drush theme:enable -y pixture_reloaded
@@ -81,20 +93,20 @@ drush config:get system.theme
 # drush config:get system.theme
 # drush theme:uninstall -y pixture_reloaded # Unable to uninstall themes.
 
-drush pm:uninstall -y entity_browser
+# drush pm:uninstall -y entity_browser
 drush pm:uninstall -y redirect
-drush pm:uninstall -y video_embed_html5
-drush pm:uninstall -y video_embed_ted
-drush pm:uninstall -y video_embed_instagram
-drush pm:uninstall -y video_embed_dailymotion
-drush pm:uninstall -y video_embed_facebook
-drush pm:uninstall -y video_embed_wysiwyg
+# drush pm:uninstall -y video_embed_html5
+# drush pm:uninstall -y video_embed_ted
+# drush pm:uninstall -y video_embed_instagram
+# drush pm:uninstall -y video_embed_dailymotion
+# drush pm:uninstall -y video_embed_facebook
+# drush pm:uninstall -y video_embed_wysiwyg
 drush pm:uninstall -y webform
-drush pm:uninstall -y devel
-drush pm:uninstall -y field_group
-drush pm:uninstall -y paragraphs
-drush pm:uninstall -y entity_reference_revisions
-drush pm:uninstall -y metatag
+# drush pm:uninstall -y devel
+# drush pm:uninstall -y field_group
+# drush pm:uninstall -y paragraphs
+# drush pm:uninstall -y entity_reference_revisions
+# drush pm:uninstall -y metatag
 drush pm:uninstall -y pathauto
 drush pm:uninstall -y token
 drush pm:uninstall -y admin_toolbar
