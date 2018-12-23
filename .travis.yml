@@ -3,7 +3,7 @@ language: php
 
 addons:
   mariadb: '10.3' # # Do not know about other versions...
-  postgresql: "10" # # Most recent with trusty is 9.6
+  postgresql: "9.6" # # Most recent with trusty is 9.6
   apt:
     packages:
     - elinks # For dysplaying php files on console.
