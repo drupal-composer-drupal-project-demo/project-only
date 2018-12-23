@@ -16,15 +16,15 @@ cache:
 php:
 - nightly
 - 7.3
-- 7.2 # For Drupal 8.5+
+# - 7.2 # Recommanded for Drupal 8.5+
 # - 7.1 # Recommanded for Drupal 8.4
-- 7.0 # Debian 9
+- 7.0 # Debian 9, Supported by Drupal 8
 # - 5.6 # Minimum for Drush 9, Debian 8
 # - 5.5 # Minimum for Drupal 8
 
-services:
-- mysql
-- postgresql
+# services:
+# - mysql
+# - postgresql
 
 env:
   global:
