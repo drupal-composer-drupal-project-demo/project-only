@@ -2,8 +2,8 @@
 language: php
 
 addons:
-  mariadb: '10.0' # Do not know about other versions...
-  postgresql: "9.6" # Most recent with trusty is 9.6
+  mariadb: '10.3' # # Do not know about other versions...
+  postgresql: "11" # # Most recent with trusty is 9.6
   apt:
     packages:
     - elinks # For dysplaying php files on console.
@@ -43,28 +43,28 @@ env:
 matrix:
   fast_finish: true
   include:
-  - php: 7.2
-    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 7.2
-    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-    addons: # default mysql
-      apt:
-        packages:
-        - elinks
-  - php: 5.6
-    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-  - php: 5.6
-    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
-    addons: # default postgresql
-      apt:
-        packages:
-        - elinks
-  allow_failures:
   - php: 7.3
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.3
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.3
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.0
+    env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    # addons: # default mysql
+      # apt:
+        # packages:
+        # - elinks
+  - php: 7.0
+    env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+  - php: 7.0
+    env: DB_TYPE="pgsql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
+    # addons: # default postgresql
+      # apt:
+        # packages:
+        # - elinks
+  allow_failures:
+  - php: 7.4
   - php: nightly
   - env: DB_TYPE="mysql"  DRUPAL_VERSION=$DRUPAL_DEV_VERSION
   - env: DB_TYPE="sqlite" DRUPAL_VERSION=$DRUPAL_DEV_VERSION
